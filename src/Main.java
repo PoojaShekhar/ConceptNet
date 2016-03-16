@@ -37,9 +37,12 @@ public class Main {
          */
         JSONObject obj = new JSONObject(str);
 
+        if (! obj.getString("numFound").equals("OK"))
+            return;
+
         for (int i = 0; i < limitToInt; i++) {
-            JSONObject res2 = obj.getJSONArray("edges").getJSONObject(i);
-            System.out.println(res2.getString("start").replaceAll("/c/en/", ""));
+            JSONObject results = obj.getJSONArray("edges").getJSONObject(i);
+            System.out.println(results.getString("start").replaceAll("/c/en/", ""));
         }
     }
 }
