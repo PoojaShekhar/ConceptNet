@@ -11,22 +11,25 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         /*
-         *
+         * Query ConceptNet for "animal".
          */
         String animals = ConceptQuery.returnURL("animal",10);
-        JSONObject obj = new JSONObject(animals);
+        JSONObject objAnimals = new JSONObject(animals);
 
         for (int i = 0; i < 10; i++) {
-            JSONObject results = obj.getJSONArray("edges").getJSONObject(i);
-            String currAnimal = results.getString("start").replaceAll("/c/en/", "");
+            JSONObject resultsAnimals = objAnimals.getJSONArray("edges").getJSONObject(i);
+            String currAnimal = resultsAnimals.getString("start").replaceAll("/c/en/", "");
 
-            String animalInfo = ConceptQuery.returnURL(currAnimal, 5);
-            JSONObject obj2 = new JSONObject(animalInfo);
+            /*
+             * Query ConceptNet for the current animal from the "animal" query.
+             */
+            String currAnimalRelations = ConceptQuery.returnURL(currAnimal, 5);
+            JSONObject objCurrAnimalRelations = new JSONObject(currAnimalRelations);
 
             System.out.println("--------------------" + currAnimal + "---------------------------");
             for (int k = 0; k < 5; k++) {
-                JSONObject results2 = obj2.getJSONArray("edges").getJSONObject(k);
-                System.out.println(results2.getString("surfaceText").replaceAll("\\[", "").replaceAll("\\]", ""));
+                JSONObject resultsCurrAnimalRelations = objCurrAnimalRelations.getJSONArray("edges").getJSONObject(k);
+                System.out.println(resultsCurrAnimalRelations.getString("surfaceText").replaceAll("\\[", "").replaceAll("\\]", ""));
             }
         }
     }

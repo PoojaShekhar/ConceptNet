@@ -7,12 +7,11 @@ import java.util.Scanner;
 
 public class ConceptQuery {
 
+    /*
+     * limit specifies the length of our ConceptNet5 query.
+     * concept is the concept queried.
+     */
     public static String returnURL(String concept, int limit) throws IOException {
-
-        /*
-         * limit specifies the length of our ConceptNet5 query.
-         * concept is the concept queried.
-         */
 
         String s = "http://conceptnet5.media.mit.edu/data/5.3/c/en/" + concept + "?limit=" + limit;
         URL url = new URL(s);
