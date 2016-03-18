@@ -41,7 +41,7 @@ public class Main {
             }
         }
 
-        String sheepQ = ConceptQuery.returnURL("cougar", sheepQuery);
+        String sheepQ = ConceptQuery.returnURL("dog", sheepQuery);
         JSONObject jsonSheep = new JSONObject(sheepQ);
 
         for (int i = 0; i < sheepQuery; i++) {
@@ -50,7 +50,7 @@ public class Main {
             Sheep.add(firstSheep);
         }
 
-        String goatQ = ConceptQuery.returnURL("mountain_lion", goatQuery);
+        String goatQ = ConceptQuery.returnURL("cat", goatQuery);
         JSONObject jsonGoat = new JSONObject(goatQ);
 
         for (int i = 0; i < goatQuery; i++) {
