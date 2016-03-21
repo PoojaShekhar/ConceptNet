@@ -40,7 +40,8 @@ public class Main {
         LinkedList<String> Sheep = new LinkedList<>();
         LinkedList<String> Goat = new LinkedList<>();
         LinkedList<String> SameList = new LinkedList<>();
-        Collection<String> queryList = new ArrayList<>();
+        LinkedList<String> conceptList = new LinkedList<>();
+        TreeMap<String, Integer> comparedList = new TreeMap<>();
         /*
          * Query ConceptNet for "animal".
          */
@@ -93,6 +94,9 @@ public class Main {
             System.out.println(Goat.get(i));
         }
 
+        /*
+         * Similarities between concept1 & concept2.
+         */
         for (int i = 0; i < Goat.size(); i++) {
             for (int k = 0; k < Sheep.size(); k++) {
                 if (Goat.get(i).equals(Sheep.get(k))) {
@@ -101,7 +105,7 @@ public class Main {
             }
         }
         /*
-         * Checking for similarities between a concept and a list of other concepts.
+         * Counting similarities between a concept and a list of other concepts.
          */
         System.out.println("----------SIMILARITIES: " + concept1 + " & " + concept2 + "-------------");
         for (int i = 0; i < SameList.size(); i++) {
@@ -110,8 +114,6 @@ public class Main {
 
         String conceptItem = "dog";
         System.out.println("---------LIST OF MOST SIMILAR FOR: " + conceptItem + "------------------");
-        LinkedList<String> conceptList = new LinkedList<>();
-        TreeMap<String, Integer> comparedList = new TreeMap<>();
         conceptList.add("mouse");
         conceptList.add("bird");
         conceptList.add("cat");
