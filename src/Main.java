@@ -5,9 +5,25 @@
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 public class Main {
+
+    /*
+     * Make the LinkedList<String> someList unique.
+     */
+    public static LinkedList<String> makeUnique(LinkedList<String> theList) {
+        LinkedList<String> uniqueList = new LinkedList<>();
+        for (int i = 0; i < theList.size(); i++)  {
+            if (!uniqueList.contains(theList.get(i))) {
+                uniqueList.add(theList.get(i));
+            }
+        }
+        return uniqueList;
+    }
 
     public static void main(String[] args) throws IOException, JSONException {
 
@@ -15,6 +31,8 @@ public class Main {
         int animalQuery = 20;
         int sheepQuery = 30;
         int goatQuery = 30;
+        String concept1 = "dog";
+        String concept2 = "cat";
 
         LinkedList<String> Animals = new LinkedList<>();
         LinkedList<String> AnimalsUnique = new LinkedList<>();
@@ -22,7 +40,7 @@ public class Main {
         LinkedList<String> Sheep = new LinkedList<>();
         LinkedList<String> Goat = new LinkedList<>();
         LinkedList<String> SameList = new LinkedList<>();
-        LinkedList<String> DiffList = new LinkedList<>();
+        Collection<String> queryList = new ArrayList<>();
         /*
          * Query ConceptNet for "animal".
          */
@@ -40,8 +58,10 @@ public class Main {
                 AnimalsUnique.add(Animals.get(i));
             }
         }
-
-        String sheepQ = ConceptQuery.returnURL("dog", sheepQuery);
+        /*
+         * Query concept1.
+         */
+        String sheepQ = ConceptQuery.returnURL(concept1, sheepQuery);
         JSONObject jsonSheep = new JSONObject(sheepQ);
 
         for (int i = 0; i < sheepQuery; i++) {
@@ -49,8 +69,11 @@ public class Main {
             String firstSheep = resSheep.getString("end").replaceAll("/c/en/", "");
             Sheep.add(firstSheep);
         }
-
-        String goatQ = ConceptQuery.returnURL("cat", goatQuery);
+        Sheep = makeUnique(Sheep);
+        /*
+         * Query concept2.
+         */
+        String goatQ = ConceptQuery.returnURL(concept2, goatQuery);
         JSONObject jsonGoat = new JSONObject(goatQ);
 
         for (int i = 0; i < goatQuery; i++) {
@@ -58,13 +81,14 @@ public class Main {
             String firstGoat = resGoat.getString("end").replaceAll("/c/en/","");
             Goat.add(firstGoat);
         }
+        Goat = makeUnique(Goat);
 
-        System.out.println("------------SHEEP----------------");
+        System.out.println("------------" + concept1 + "----------------");
         for (int i = 0; i < Sheep.size(); i++) {
             System.out.println(Sheep.get(i));
         }
 
-        System.out.println("-------------GOAT---------------");
+        System.out.println("-------------" + concept2 + "---------------");
         for (int i = 0; i < Goat.size(); i++) {
             System.out.println(Goat.get(i));
         }
@@ -72,14 +96,33 @@ public class Main {
         for (int i = 0; i < Goat.size(); i++) {
             for (int k = 0; k < Sheep.size(); k++) {
                 if (Goat.get(i).equals(Sheep.get(k))) {
-                    SameList.add(Goat.get(i));
+                        SameList.add(Goat.get(i));
                 }
             }
         }
-
-        System.out.println("----------SIMILARITIES-------------");
+        /*
+         * Checking for similarities between a concept and a list of other concepts.
+         */
+        System.out.println("----------SIMILARITIES: " + concept1 + " & " + concept2 + "-------------");
         for (int i = 0; i < SameList.size(); i++) {
             System.out.println(SameList.get(i));
         }
+
+        String conceptItem = "dog";
+        System.out.println("---------LIST OF MOST SIMILAR FOR: " + conceptItem + "------------------");
+        LinkedList<String> conceptList = new LinkedList<>();
+        TreeMap<String, Integer> comparedList = new TreeMap<>();
+        conceptList.add("mouse");
+        conceptList.add("bird");
+        conceptList.add("cat");
+        conceptList.add("puma");
+        conceptList.add("spoon");
+        conceptList.add("cougar"); // fyrir Tryggva.
+        conceptList.add("car");
+        conceptList.add("chicken");
+        conceptList.add("squirrel");
+        comparedList = Similarity.returnSimilar(conceptItem, conceptList);
+        System.out.println(comparedList);
+
     }
 }
