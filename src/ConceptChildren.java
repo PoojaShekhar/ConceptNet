@@ -12,11 +12,12 @@ public class ConceptChildren {
     public static LinkedList<String> findChildren(String concept) throws IOException {
 
         LinkedList<String> conceptChildren = new LinkedList<>();
+        int queryCount = 30;
 
-        String conceptQuery = ConceptQuery.returnURL(concept,30);
+        String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
         JSONObject objQuery = new JSONObject(conceptQuery);
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < queryCount; i++) {
 
             JSONObject objResult = objQuery.getJSONArray("edges").getJSONObject(i);
             JSONArray array = objResult.getJSONArray("features");
