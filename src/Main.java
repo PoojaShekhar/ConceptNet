@@ -2,6 +2,7 @@
  * Created by Hoddi on 16.3.2016.
  */
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -86,12 +87,13 @@ public class Main {
         for (int i = 0; i < Sheep.size(); i++) {
             System.out.println(Sheep.get(i));
         }
+        System.out.println();
 
         System.out.println("-------------" + concept2.toUpperCase() + "---------------");
         for (int i = 0; i < Goat.size(); i++) {
             System.out.println(Goat.get(i));
         }
-
+        System.out.println();
         /*
          * Similarities between concept1 & concept2.
          */
@@ -109,6 +111,7 @@ public class Main {
         for (int i = 0; i < SameList.size(); i++) {
             System.out.println(SameList.get(i));
         }
+        System.out.println();
 
         String conceptItem = "dog";
         System.out.println("---------LIST OF MOST SIMILAR FOR: " + conceptItem.toUpperCase() + "------------------");
@@ -123,6 +126,15 @@ public class Main {
         conceptList.add("squirrel");
         comparedList = ConceptSimilarity.returnSimilar(conceptItem, conceptList);
         System.out.println(comparedList);
+        System.out.println();
+
+
+        String conceptChildren = "bird";
+        System.out.println("-----------FIND CHILDREN OF: " + conceptChildren.toUpperCase() + "---------");
+        LinkedList<String> test = ConceptChildren.findChildren(conceptChildren);
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(test.get(i));
+        }
 
     }
 }
