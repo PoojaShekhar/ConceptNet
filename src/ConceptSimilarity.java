@@ -9,7 +9,7 @@ import java.util.TreeMap;
 /**
  * Created by Hoddi on 21.3.2016.
  */
-public class Similarity {
+public class ConceptSimilarity {
 
     /*
      * TreeMap is a map sorted by it's keys.

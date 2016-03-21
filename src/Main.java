@@ -5,8 +5,6 @@
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
@@ -84,12 +82,12 @@ public class Main {
         }
         Goat = makeUnique(Goat);
 
-        System.out.println("------------" + concept1 + "----------------");
+        System.out.println("------------" + concept1.toUpperCase() + "----------------");
         for (int i = 0; i < Sheep.size(); i++) {
             System.out.println(Sheep.get(i));
         }
 
-        System.out.println("-------------" + concept2 + "---------------");
+        System.out.println("-------------" + concept2.toUpperCase() + "---------------");
         for (int i = 0; i < Goat.size(); i++) {
             System.out.println(Goat.get(i));
         }
@@ -107,13 +105,13 @@ public class Main {
         /*
          * Counting similarities between a concept and a list of other concepts.
          */
-        System.out.println("----------SIMILARITIES: " + concept1 + " & " + concept2 + "-------------");
+        System.out.println("----------SIMILARITIES: " + concept1.toUpperCase() + " & " + concept2.toUpperCase() + "-------------");
         for (int i = 0; i < SameList.size(); i++) {
             System.out.println(SameList.get(i));
         }
 
         String conceptItem = "dog";
-        System.out.println("---------LIST OF MOST SIMILAR FOR: " + conceptItem + "------------------");
+        System.out.println("---------LIST OF MOST SIMILAR FOR: " + conceptItem.toUpperCase() + "------------------");
         conceptList.add("mouse");
         conceptList.add("bird");
         conceptList.add("cat");
@@ -123,7 +121,7 @@ public class Main {
         conceptList.add("car");
         conceptList.add("chicken");
         conceptList.add("squirrel");
-        comparedList = Similarity.returnSimilar(conceptItem, conceptList);
+        comparedList = ConceptSimilarity.returnSimilar(conceptItem, conceptList);
         System.out.println(comparedList);
 
     }
