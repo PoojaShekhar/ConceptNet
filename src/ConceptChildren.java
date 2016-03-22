@@ -11,8 +11,12 @@ public class ConceptChildren {
 
     public static LinkedList<String> findChildren(String concept) throws IOException {
 
+        /*
+         * childLength is set to 30 to eliminate large sentences.
+         */
         LinkedList<String> conceptChildren = new LinkedList<>();
         int queryCount = 30;
+        int childLength = 30;
 
         String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
         JSONObject objQuery = new JSONObject(conceptQuery);
@@ -26,7 +30,9 @@ public class ConceptChildren {
                 if (currArrayItem.contains("IsA -")) {
                     String conceptChild = currArrayItem.replaceAll("/c/en/", "").replaceAll("/r/IsA -", "");
                     conceptChild = "A " + concept + " can be a " + conceptChild;
-                    conceptChildren.add(conceptChild);
+                    if (!conceptChildren.contains(conceptChild) && conceptChild.length() < childLength){
+                        conceptChildren.add(conceptChild);
+                    }
                 }
             }
         }

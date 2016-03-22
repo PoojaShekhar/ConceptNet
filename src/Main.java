@@ -129,11 +129,19 @@ public class Main {
         System.out.println();
 
 
-        String conceptChildren = "bird";
+        String conceptChildren = "canine";
         System.out.println("-----------FIND CHILDREN OF: " + conceptChildren.toUpperCase() + "---------");
-        LinkedList<String> test = ConceptChildren.findChildren(conceptChildren);
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println(test.get(i));
+        LinkedList<String> listChildren = ConceptChildren.findChildren(conceptChildren);
+        for (int i = 0; i < listChildren.size(); i++) {
+            System.out.println(listChildren.get(i));
+        }
+        System.out.println();
+
+        String conceptParent = "dachshund";
+        System.out.println("-----------FIND PARENT OF: " + conceptParent.toUpperCase() + "---------");
+        LinkedList<String> listParent = ConceptParent.findParent(conceptParent);
+        for (int i = 0; i < listParent.size(); i++) {
+            System.out.println(listParent.get(i));
         }
 
     }
