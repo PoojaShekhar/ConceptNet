@@ -2,7 +2,6 @@
  * Created by Hoddi on 16.3.2016.
  */
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -129,17 +128,17 @@ public class Main {
         System.out.println();
 
 
-        String conceptChildren = "canine";
+        String conceptChildren = "finch";
         System.out.println("-----------FIND CHILDREN OF: " + conceptChildren.toUpperCase() + "---------");
-        LinkedList<String> listChildren = ConceptChildren.findChildren(conceptChildren);
+        LinkedList<String> listChildren = ConceptRelations.findChildren(conceptChildren);
         for (int i = 0; i < listChildren.size(); i++) {
             System.out.println(listChildren.get(i));
         }
         System.out.println();
 
-        String conceptParent = "dachshund";
+        String conceptParent = "goldfinch";
         System.out.println("-----------FIND PARENT OF: " + conceptParent.toUpperCase() + "---------");
-        LinkedList<String> listParent = ConceptParent.findParent(conceptParent);
+        LinkedList<String> listParent = ConceptRelations.findParents(conceptParent);
         for (int i = 0; i < listParent.size(); i++) {
             System.out.println(listParent.get(i));
         }
