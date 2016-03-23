@@ -3,6 +3,10 @@
  */
 public class ConceptEdges {
 
+    /*
+     * For learning edge transition probabilities,
+     * to help calculate pathway scoring.
+     */
     public static final String atLocationEdge = "AtLocation";
     public static final String relatedToEdge = "RelatedTo";
     public static final String hasAEdge = "HasA";
