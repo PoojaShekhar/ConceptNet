@@ -2,7 +2,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 /*
- * A Comparator class that compares Strings.
+ * A Comparator class that compares Strings, for sorting the
+ * TreeMap<String, Integer> in ConceptSimilarity.java
  */
 public class ConceptComparator implements Comparator<String> {
 
