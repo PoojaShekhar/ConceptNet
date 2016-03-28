@@ -17,6 +17,8 @@ public class ConceptEdges {
     /*
      * For learning edge transition probabilities,
      * to help calculate pathway scoring.
+     * Not Complete. Need to find a path from a concept to concept,
+     * with the probability scoring? 
      */
     public static final String atLocationEdge = "AtLocation";
     public static final String relatedToEdge = "RelatedTo";
