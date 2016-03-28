@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -72,7 +73,25 @@ public class ConceptEdges {
         return collection;
     }
 
-    public static TreeMap<String, Integer> getProbabilities(String concept) throws IOException {
+    /*
+     * Used to convert TreeMap<String, Integer> to a Collection of Edge(String, Double).
+     */
+    public static Collection<Edge> makeCollection(TreeMap<String, Integer> map, int count) {
+        Collection<Edge> coll = new ArrayList<>();
+        for(Map.Entry<String,Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Double value = (double)entry.getValue();
+            Edge edge = new Edge(key, value/count);
+            coll.add(edge);
+        }
+        return coll;
+    }
+
+    /*
+     * Make a Collection<Edge> that shows the probabilities of different edges leading
+     * from or to a concept.
+     */
+    public static Collection<Edge> getProbabilities(String concept) throws IOException {
 
         TreeMap<String, Integer> probEdges = new TreeMap<>();
         ArrayList<String> edgeList = new ArrayList<>();
@@ -107,7 +126,7 @@ public class ConceptEdges {
 
             }
         }
-        return probEdges;
+        return makeCollection(probEdges, count);
     }
 
 }

@@ -7,8 +7,7 @@ import org.json.JSONObject;
 import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Main {
 
@@ -166,9 +165,9 @@ public class Main {
             System.out.println();
         }
 
-        TreeMap<String, Integer> test = new TreeMap<>();
-        test = ConceptEdges.getProbabilities("bird");
-        System.out.println(test);
 
+        Collection<Edge> edgeProbabilities = new ArrayList<>();
+        edgeProbabilities = ConceptEdges.getProbabilities("bird");
+        System.out.println(edgeProbabilities);
     }
 }
