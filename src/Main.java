@@ -4,6 +4,8 @@
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import sun.reflect.generics.tree.Tree;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.TreeMap;
@@ -25,7 +27,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, JSONException {
 
-        boolean conceptRelations = true;
+        boolean conceptRelations = false;
         boolean conceptSimilarity = false;
         boolean conceptMatches = false;
         int animalQuery = 20;
@@ -163,5 +165,10 @@ public class Main {
             }
             System.out.println();
         }
+
+        TreeMap<String, Integer> test = new TreeMap<>();
+        test = ConceptEdges.getProbabilities("bird");
+        System.out.println(test);
+
     }
 }
