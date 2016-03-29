@@ -169,5 +169,10 @@ public class Main {
         Collection<Edge> edgeProbabilities = new ArrayList<>();
         edgeProbabilities = ConceptEdges.getProbabilities("mammal");
         System.out.println(edgeProbabilities);
+
+        Collection<Relation> test = new LinkedList<>();
+        test = Hello.findConnections("bird");
+        System.out.println(test);
+
     }
 }
