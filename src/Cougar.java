@@ -10,16 +10,17 @@ import java.util.LinkedList;
 /**
  * Created by Hoddi on 29.3.2016.
  */
-public class Hello {
+public class Cougar {
 
     /*
-     * findConnection lists all possible relations from a concept, to another concept.
+     * findConnection lists all possible relations from one concept, and the concept connected to that relation.
+     * Also lists the ConceptNet5 user score, weight, that this relation holds.
      */
     public static Collection<Relation> findConnections(String concept) throws IOException, JSONException {
 
         Collection<Relation> conceptChildren = new ArrayList<>();
         ArrayList<String> pathList = ConceptEdges.getEdges();
-        int queryCount = 300;
+        int queryCount = 10;
 
         String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
         JSONObject objQuery = new JSONObject(conceptQuery);
@@ -28,13 +29,14 @@ public class Hello {
 
             JSONObject objResult = objQuery.getJSONArray("edges").getJSONObject(i);
             JSONArray array = objResult.getJSONArray("features");
+            double score = objResult.getDouble("weight");
             for (int k = 0; k < array.length(); k++) {
                 String currArrayItem = array.getString(k);
                 for (int h = 0; h < pathList.size(); h++) {
                     if (currArrayItem.contains(pathList.get(h))) {
                         String conceptChild = currArrayItem;
                         String[] test = conceptChild.split(" ");
-                        Relation rel = new Relation(test[1].replaceAll("/r/",""), test[2].replaceAll("/c/en/", ""));
+                        Relation rel = new Relation(test[1].replaceAll("/r/",""), test[2].replaceAll("/c/en/", ""),score);
                         if (!conceptChildren.contains(rel)) {
                             conceptChildren.add(rel);
                         }
