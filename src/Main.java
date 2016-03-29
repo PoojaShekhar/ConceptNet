@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -165,9 +166,18 @@ public class Main {
             System.out.println();
         }
 
+        ////////////////// TESTING /////////////////////////////////
 
-        Collection<Edge> edgeProbabilities = new ArrayList<>();
-        edgeProbabilities = ConceptEdges.getProbabilities("mammal");
-        System.out.println(edgeProbabilities);
+
+        //Collection<Edge> edgeProbabilities = new ArrayList<>();
+        //edgeProbabilities = ConceptEdges.getProbabilities("insect");
+        //System.out.println(edgeProbabilities);
+
+        Collection<Relation> children = new LinkedList<>();
+        children = Hello.findChildren("bird");
+        System.out.println(children);
+
+
+
     }
 }

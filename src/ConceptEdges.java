@@ -45,9 +45,9 @@ public class ConceptEdges {
     public static final String translationOfEdge = "- /r/TranslationOf";
     public static final String definedAsEdge = "- /r/DefinedAs";
 
-    public static Collection<String> getEdges() {
+    public static ArrayList<String> getEdges() {
 
-        Collection<String> collection = new ArrayList<>();
+        ArrayList<String> collection = new ArrayList<>();
 
         collection.add(atLocationEdge);
         collection.add(relatedToEdge);
