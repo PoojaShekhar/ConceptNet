@@ -20,7 +20,7 @@ public class Cougar {
 
         Collection<Relation> conceptChildren = new ArrayList<>();
         ArrayList<String> pathList = ConceptEdges.getEdges();
-        int queryCount = 10;
+        int queryCount = 300;
 
         String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
         JSONObject objQuery = new JSONObject(conceptQuery);
@@ -35,8 +35,8 @@ public class Cougar {
                 for (int h = 0; h < pathList.size(); h++) {
                     if (currArrayItem.contains(pathList.get(h))) {
                         String conceptChild = currArrayItem;
-                        String[] test = conceptChild.split(" ");
-                        Relation rel = new Relation(test[1].replaceAll("/r/",""), test[2].replaceAll("/c/en/", ""),score);
+                        String[] tmp = conceptChild.split(" ");
+                        Relation rel = new Relation(tmp[1].replaceAll("/r/",""), tmp[2].replaceAll("/c/en/", ""),score);
                         if (!conceptChildren.contains(rel)) {
                             conceptChildren.add(rel);
                         }
