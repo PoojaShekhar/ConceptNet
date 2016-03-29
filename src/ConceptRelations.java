@@ -1,4 +1,5 @@
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.util.LinkedList;
  */
 public class ConceptRelations {
 
-    public static LinkedList<String> findChildren(String concept) throws IOException {
+    public static LinkedList<String> findChildren(String concept) throws IOException, JSONException {
 
         /*
          * childLength is set to 30 to eliminate large sentences.
@@ -39,7 +40,7 @@ public class ConceptRelations {
         return conceptChildren;
     }
 
-    public static LinkedList<String> findParents(String concept) throws IOException {
+    public static LinkedList<String> findParents(String concept) throws IOException, JSONException {
 
         /*
          * parentLength is set to 30 to eliminate large sentences.

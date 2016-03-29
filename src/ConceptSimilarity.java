@@ -1,3 +1,4 @@
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ConceptSimilarity {
         return result;
     }
 
-    public static TreeMap<String, Integer> returnSimilar(String compare, LinkedList<String> compareList) throws IOException {
+    public static TreeMap<String, Integer> returnSimilar(String compare, LinkedList<String> compareList) throws IOException, JSONException {
 
         LinkedList<String> tmpList = new LinkedList<>();
         LinkedList<String> compList = new LinkedList<>();

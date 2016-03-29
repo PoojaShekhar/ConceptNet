@@ -1,5 +1,6 @@
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -20,29 +21,29 @@ public class ConceptEdges {
      * Not Complete. Need to find a path from a concept to concept,
      * with the probability scoring? 
      */
-    public static final String atLocationEdge = "AtLocation";
-    public static final String relatedToEdge = "RelatedTo";
-    public static final String hasAEdge = "HasA";
-    public static final String isAEdge = "IsA";
-    public static final String capableOfEdge = "CapableOf";
-    public static final String desiresEdge = "Desires";
-    public static final String usedForEdge = "UsedFor";
-    public static final String partOfEdge = "PartOf";
-    public static final String hasPropertyEdge = "HasProperty";
-    public static final String memberOfEdge = "MemberOf";
-    public static final String causesEdge = "Causes";
-    public static final String hasSubeventEdge = "HasSubevent";
-    public static final String hasFirstSubeventEdge = "HasFirstSubevent";
-    public static final String hasLastSubeventEdge = "HasLastSubevent";
-    public static final String hasPrerequisiteEdge = "HasPrerequisite";
-    public static final String motivatedByGoalEdge = "MotivatedByGoal";
-    public static final String obstructedByEdge = "ObstructedBy";
-    public static final String createdByEdge = "CreatedBy";
-    public static final String synonymEdge = "Synonym";
-    public static final String antonymEdge = "Antonym";
-    public static final String derivedFromEdge = "DerivedFrom";
-    public static final String translationOfEdge = "TranslationOf";
-    public static final String definedAsEdge = "DefinedAs";
+    public static final String atLocationEdge = "- /r/AtLocation";
+    public static final String relatedToEdge = "- /r/RelatedTo";
+    public static final String hasAEdge = "- /r/HasA";
+    public static final String isAEdge = "- /r/IsA";
+    public static final String capableOfEdge = "- /r/CapableOf";
+    public static final String desiresEdge = "- /r/Desires";
+    public static final String usedForEdge = "- /r/UsedFor";
+    public static final String partOfEdge = "- /r/PartOf";
+    public static final String hasPropertyEdge = "- /r/HasProperty";
+    public static final String memberOfEdge = "- /r/MemberOf";
+    public static final String causesEdge = "- /r/Causes";
+    public static final String hasSubeventEdge = "- /r/HasSubevent";
+    public static final String hasFirstSubeventEdge = "- /r/HasFirstSubevent";
+    public static final String hasLastSubeventEdge = "- /r/HasLastSubevent";
+    public static final String hasPrerequisiteEdge = "- /r/HasPrerequisite";
+    public static final String motivatedByGoalEdge = "- /r/MotivatedByGoal";
+    public static final String obstructedByEdge = "- /r/ObstructedBy";
+    public static final String createdByEdge = "- /r/CreatedBy";
+    public static final String synonymEdge = "- /r/Synonym";
+    public static final String antonymEdge = "- /r/Antonym";
+    public static final String derivedFromEdge = "- /r/DerivedFrom";
+    public static final String translationOfEdge = "- /r/TranslationOf";
+    public static final String definedAsEdge = "- /r/DefinedAs";
 
     public static Collection<String> getEdges() {
 
@@ -93,12 +94,12 @@ public class ConceptEdges {
      * Make a Collection<Edge> that shows the probabilities of different edges leading
      * from or to a concept.
      */
-    public static Collection<Edge> getProbabilities(String concept) throws IOException {
+    public static Collection<Edge> getProbabilities(String concept) throws IOException, JSONException {
 
         TreeMap<String, Integer> probEdges = new TreeMap<>();
         ArrayList<String> edgeList = new ArrayList<>();
         edgeList.addAll(getEdges());
-        int queryCount = 100;
+        int queryCount = 300;
         int count = 0;
 
         String compareItem = ConceptQuery.returnURL(concept,queryCount);
@@ -110,7 +111,7 @@ public class ConceptEdges {
             for (int k = 0; k < array.length(); k++) {
                 String currArrayItem = array.getString(k);
                 for (int j = 0; j < edgeList.size(); j++) {
-                    if (currArrayItem.contains(edgeList.get(j))) {
+                    if (currArrayItem.contains(edgeList.get(j)) && !currArrayItem.contains(concept)) {
                         count++;
                         if(probEdges.containsKey(edgeList.get(j))) {
                             int intPair = probEdges.get(edgeList.get(j));

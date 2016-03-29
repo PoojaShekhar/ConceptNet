@@ -167,7 +167,7 @@ public class Main {
 
 
         Collection<Edge> edgeProbabilities = new ArrayList<>();
-        edgeProbabilities = ConceptEdges.getProbabilities("bird");
+        edgeProbabilities = ConceptEdges.getProbabilities("mammal");
         System.out.println(edgeProbabilities);
     }
 }
