@@ -19,7 +19,7 @@ public class ConceptEdges {
      * For learning edge transition probabilities,
      * to help calculate pathway scoring.
      * Not Complete. Need to find a path from a concept to concept,
-     * with the probability scoring? 
+     * with the probability scoring?
      */
     public static final String atLocationEdge = "- /r/AtLocation";
     public static final String relatedToEdge = "- /r/RelatedTo";
@@ -116,11 +116,11 @@ public class ConceptEdges {
                         if(probEdges.containsKey(edgeList.get(j))) {
                             int intPair = probEdges.get(edgeList.get(j));
                             int intPairCounted = intPair + 1;
-                            probEdges.put(edgeList.get(j), intPairCounted);
+                            probEdges.put(edgeList.get(j).replaceAll("- /r/",""), intPairCounted);
                         }
                         else
                         {
-                            probEdges.put(edgeList.get(j), 1);
+                            probEdges.put(edgeList.get(j).replaceAll("- /r/",""), 1);
                         }
 
                     }
@@ -129,7 +129,7 @@ public class ConceptEdges {
 
             }
         }
-        return makeCollection(probEdges, count);
+        return makeCollection(probEdges, 1);
     }
 
 }
