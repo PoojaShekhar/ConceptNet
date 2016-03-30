@@ -20,7 +20,7 @@ public class Cougar {
 
         Collection<Relation> conceptChildren = new ArrayList<>();
         ArrayList<String> pathList = ConceptEdges.getEdges();
-        int queryCount = 100;
+        int queryCount = 50;
 
         try {
             String conceptQuery = ConceptQuery.returnURL(concept, queryCount);

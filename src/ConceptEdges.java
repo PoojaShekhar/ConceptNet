@@ -106,26 +106,29 @@ public class ConceptEdges {
         JSONObject objCompareItem = new JSONObject(compareItem);
 
         for (int i = 0; i < queryCount; i++) {
-            JSONObject objResult = objCompareItem.getJSONArray("edges").getJSONObject(i);
-            JSONArray array = objResult.getJSONArray("features");
-            for (int k = 0; k < array.length(); k++) {
-                String currArrayItem = array.getString(k);
-                for (int j = 0; j < edgeList.size(); j++) {
-                    if (currArrayItem.contains(edgeList.get(j)) && !currArrayItem.contains(concept)) {
-                        count++;
-                        if(probEdges.containsKey(edgeList.get(j))) {
-                            int intPair = probEdges.get(edgeList.get(j));
-                            int intPairCounted = intPair + 1;
-                            probEdges.put(edgeList.get(j), intPairCounted);
-                        }
-                        else
-                        {
-                            probEdges.put(edgeList.get(j), 1);
+            try {
+                JSONObject objResult = objCompareItem.getJSONArray("edges").getJSONObject(i);
+                JSONArray array = objResult.getJSONArray("features");
+                for (int k = 0; k < array.length(); k++) {
+                    String currArrayItem = array.getString(k);
+                    for (int j = 0; j < edgeList.size(); j++) {
+                        if (currArrayItem.contains(edgeList.get(j)) && !currArrayItem.contains(concept)) {
+                            count++;
+                            if (probEdges.containsKey(edgeList.get(j))) {
+                                int intPair = probEdges.get(edgeList.get(j));
+                                int intPairCounted = intPair + 1;
+                                probEdges.put(edgeList.get(j), intPairCounted);
+                            } else {
+                                probEdges.put(edgeList.get(j), 1);
+                            }
+
                         }
 
                     }
 
                 }
+            }
+            catch (JSONException ex) {
 
             }
         }

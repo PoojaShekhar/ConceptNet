@@ -30,7 +30,7 @@ public class Main {
     public static void main(String[] args) throws IOException, JSONException {
 
         Collection<Edge> edgeProbabilities = new ArrayList<>();
-        edgeProbabilities = ConceptEdges.getProbabilities("insect");
+        edgeProbabilities = ConceptEdges.getProbabilities("propose_to_woman");
         System.out.println(edgeProbabilities);
 
         Collection<Relation> test = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Main {
         System.out.println(try1);
 
         Collection<Relation> test3 = new ArrayList<>();
-        test3 = Final.showRelations("mammal", "find_mate");
+        test3 = Final.showRelations("love", "child");
         System.out.println(test3);
 
     }
