@@ -129,7 +129,7 @@ public class ConceptEdges {
 
             }
         }
-        return makeCollection(probEdges, count);
+        return makeCollection(probEdges, 1);
     }
 
 }

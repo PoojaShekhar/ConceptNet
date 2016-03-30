@@ -8,18 +8,20 @@ public class Relation {
     String relation;
     String concept;
     double score;
+    double prob;
 
-    public Relation(String relation, String concept, double score) {
+    public Relation(String relation, String concept, double score, double prob) {
 
         this.relation = relation;
         this.concept = concept;
         this.score = score;
+        this.prob = prob;
     }
 
     @Override
     public String toString()
     {
-        return (relation + " " + concept + " " + score + "\n");
+        return (relation + " " + concept + " " + score + " " + prob + "\n");
     }
 
     public boolean equals(Object obj) {
