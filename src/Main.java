@@ -29,7 +29,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException, JSONException {
 
-
+        Collection<Edge> edgeProbabilities = new ArrayList<>();
+        edgeProbabilities = ConceptEdges.getProbabilities("insect");
+        System.out.println(edgeProbabilities);
 
         Collection<Relation> test = new ArrayList<>();
         test = Cougar.findConnections("tire");
