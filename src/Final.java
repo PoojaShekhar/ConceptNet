@@ -23,14 +23,14 @@ public class Final {
         tmp = Cougar.findConnections(concept1);
         for (int i = 0; i < tmp.size(); i++) {
             Relation tmpRel = ((ArrayList<Relation>)tmp).get(i);
-            if (tmpRel.concept.contains(concept2)) {
+            if (tmpRel.concept.equals(concept2)) {
                 newRel.add(tmpRel);
             }
             else {
                 tmp2 = Cougar.findConnections(tmpRel.concept);
                 for (int k = 0; k < tmp2.size(); k++) {
                     Relation tmp2Rel = ((ArrayList<Relation>)tmp2).get(k);
-                    if (tmp2Rel.concept.contains(concept2)) {
+                    if (tmp2Rel.concept.equals(concept2)) {
                         newRel.add(tmpRel);
                         newRel.add(tmp2Rel);
                     }
@@ -38,7 +38,7 @@ public class Final {
                         tmp3 = Cougar.findConnections(tmp2Rel.concept);
                         for (int j = 0; j < tmp3.size(); j++) {
                             Relation tmp3Rel = ((ArrayList<Relation>)tmp3).get(j);
-                            if (tmp3Rel.concept.contains(concept2)) {
+                            if (tmp3Rel.concept.equals(concept2)) {
                                 newRel.add(tmpRel);
                                 newRel.add(tmp2Rel);
                                 newRel.add(tmp3Rel);

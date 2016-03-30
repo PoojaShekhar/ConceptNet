@@ -18,7 +18,7 @@ public class Main {
             Relation tmpRel = ((ArrayList<Relation>) rel).get(i);
             for (int k = 0; k < prob.size(); k++) {
                 Edge tmpEdge = ((ArrayList<Edge>)prob).get(k);
-                if (tmpRel.relation.contains(tmpEdge.name)) {
+                if (tmpRel.relation.contains(tmpEdge.name.replaceAll("- /r/", ""))) {
                     tmpRel.prob = tmpEdge.value;
                     newRel.add(tmpRel);
                 }
@@ -37,9 +37,12 @@ public class Main {
         test = Cougar.findConnections("tire");
         System.out.println(test);
 
+        Collection<Relation> try1 = new ArrayList<>();
+        try1 = putProb(test,edgeProbabilities);
+        System.out.println(try1);
 
         Collection<Relation> test3 = new ArrayList<>();
-        test3 = Final.showRelations("mammal", "mate");
+        test3 = Final.showRelations("mammal", "find_mate");
         System.out.println(test3);
 
     }
