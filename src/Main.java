@@ -2,6 +2,7 @@
  * Created by Hoddi on 16.3.2016.
  */
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,21 +30,33 @@ public class Main {
 
     public static void main(String[] args) throws IOException, JSONException {
 
-        Collection<Edge> edgeProbabilities = new ArrayList<>();
-        edgeProbabilities = ConceptEdges.getProbabilities("propose_to_woman");
-        System.out.println(edgeProbabilities);
+        Collection<JSONArray> test = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
+        list.add("goat");
+        list.add("squirrel");
+        list.add("crocodile");
+        list.add("chicken");
+        list.add("frog");
+        list.add("whale");
+        list.add("salmon");
+        list.add("crab");
+        list.add("spider");
+        list.add("cow");
+        list.add("horse");
+        list.add("dog");
+        list.add("cat");
+        list.add("ant");
+        /*
+        test = ConceptNet.test("sheep", list);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(((ArrayList<JSONArray>)test).get(i));
+        }
+        */
+        JSONArray arr = ConceptNet.similarityScore("dog", "cat");
+        arr.get(0);
+        System.out.println(arr);
 
-        Collection<Relation> test = new ArrayList<>();
-        test = Cougar.findConnections("tire");
-        System.out.println(test);
-
-        Collection<Relation> try1 = new ArrayList<>();
-        try1 = putProb(test,edgeProbabilities);
-        System.out.println(try1);
-
-        Collection<Relation> test3 = new ArrayList<>();
-        test3 = Final.showRelations("love", "child");
-        System.out.println(test3);
+        System.out.println(arr.get(0));
 
     }
 }
