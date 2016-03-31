@@ -56,6 +56,7 @@ public class Main {
         //arr.getJSONArray(0);
         System.out.println(arr);
         System.out.println(arr.getJSONArray(0).get(0));
+        System.out.println(arr.getJSONArray(0).get(1));
 
     }
 }
