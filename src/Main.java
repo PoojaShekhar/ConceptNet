@@ -53,10 +53,9 @@ public class Main {
         }
         */
         JSONArray arr = ConceptNet.similarityScore("dog", "cat");
-        arr.get(0);
+        //arr.getJSONArray(0);
         System.out.println(arr);
-
-        System.out.println(arr.get(0));
+        System.out.println(arr.getJSONArray(0).get(0));
 
     }
 }
