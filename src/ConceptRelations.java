@@ -18,7 +18,7 @@ public class ConceptRelations {
          * childLength is set to 30 to eliminate large sentences.
          */
         LinkedList<String> conceptChildren = new LinkedList<>();
-        int queryCount = 30;
+        int queryCount = 50;
         int childLength = 30;
 
         String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
@@ -48,7 +48,7 @@ public class ConceptRelations {
          * parentLength is set to 30 to eliminate large sentences.
          */
         LinkedList<String> conceptParents = new LinkedList<>();
-        int queryCount = 30;
+        int queryCount = 50;
         int parentLength = 30;
 
         String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
