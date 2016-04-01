@@ -30,7 +30,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, JSONException {
 
-        Collection<JSONArray> test = new ArrayList<>();
+        Collection<Edge> test = new ArrayList<>();
         ArrayList<String> list = new ArrayList<>();
         list.add("goat");
         list.add("squirrel");
@@ -46,17 +46,15 @@ public class Main {
         list.add("dog");
         list.add("cat");
         list.add("ant");
-        /*
-        test = ConceptNet.test("sheep", list);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(((ArrayList<JSONArray>)test).get(i));
-        }
-        */
-        JSONArray arr = ConceptNet.similarityScore("dog", "cat");
-        //arr.getJSONArray(0);
-        System.out.println(arr);
-        System.out.println(arr.getJSONArray(0).get(0));
-        System.out.println(arr.getJSONArray(0).get(1));
+
+        TreeMap<String,Integer> test2 = new TreeMap<>();
+        test2 = ConceptSimilarity.returnSimilar("sheep",list);
+        System.out.println(test2);
+
+        Collection<Edge> test3 = new ArrayList<Edge>();
+        test3 = ConceptNet.test("sheep", list);
+        System.out.println(test3);
+
 
     }
 }

@@ -2,10 +2,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Hoddi on 21.3.2016.
@@ -23,12 +20,12 @@ public class ConceptSimilarity {
         return result;
     }
 
-    public static TreeMap<String, Integer> returnSimilar(String compare, LinkedList<String> compareList) throws IOException, JSONException {
+    public static TreeMap<String, Integer> returnSimilar(String compare, ArrayList<String> compareList) throws IOException, JSONException {
 
         LinkedList<String> tmpList = new LinkedList<>();
         LinkedList<String> compList = new LinkedList<>();
         HashMap<String, Integer> mapList = new HashMap<>();
-        int queryCount = 30;
+        int queryCount = 100;
         int count = 0;
 
         /*
