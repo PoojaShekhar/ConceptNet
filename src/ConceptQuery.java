@@ -1,6 +1,9 @@
 /**
  * Created by Hoddi on 17.3.2016.
  */
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
@@ -26,5 +29,11 @@ public class ConceptQuery {
         scan.close();
 
         return str;
+    }
+
+    public static JSONObject getJSONObject (String concept, int limit) throws IOException, JSONException {
+        String url = returnURL(concept, limit);
+
+        return new JSONObject(url);
     }
 }

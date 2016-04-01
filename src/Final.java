@@ -10,7 +10,7 @@ import java.util.Collection;
 public class Final {
 
     /*
-     * showRelations, searches 3 level outwards from a concept trying to find a relation
+     * showRelations, searches 3 level outwards from a concept trying to find a rel
      * to another concept. If it finds it, it return a collection of Relations.
      */
     public static Collection<Relation> showRelations(String concept1, String concept2) throws IOException, JSONException{

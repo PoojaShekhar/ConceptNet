@@ -21,29 +21,29 @@ public class ConceptEdges {
      * Not Complete. Need to find a path from a concept to concept,
      * with the probability scoring? 
      */
-    public static final String atLocationEdge = "- /r/AtLocation";
-    public static final String relatedToEdge = "- /r/RelatedTo";
-    public static final String hasAEdge = "- /r/HasA";
-    public static final String isAEdge = "- /r/IsA";
-    public static final String capableOfEdge = "- /r/CapableOf";
-    public static final String desiresEdge = "- /r/Desires";
-    public static final String usedForEdge = "- /r/UsedFor";
-    public static final String partOfEdge = "- /r/PartOf";
-    public static final String hasPropertyEdge = "- /r/HasProperty";
-    public static final String memberOfEdge = "- /r/MemberOf";
-    public static final String causesEdge = "- /r/Causes";
-    public static final String hasSubeventEdge = "- /r/HasSubevent";
-    public static final String hasFirstSubeventEdge = "- /r/HasFirstSubevent";
-    public static final String hasLastSubeventEdge = "- /r/HasLastSubevent";
-    public static final String hasPrerequisiteEdge = "- /r/HasPrerequisite";
-    public static final String motivatedByGoalEdge = "- /r/MotivatedByGoal";
-    public static final String obstructedByEdge = "- /r/ObstructedBy";
-    public static final String createdByEdge = "- /r/CreatedBy";
-    public static final String synonymEdge = "- /r/Synonym";
-    public static final String antonymEdge = "- /r/Antonym";
-    public static final String derivedFromEdge = "- /r/DerivedFrom";
-    public static final String translationOfEdge = "- /r/TranslationOf";
-    public static final String definedAsEdge = "- /r/DefinedAs";
+    public static final String atLocationEdge = "/r/AtLocation";
+    public static final String relatedToEdge = "/r/RelatedTo";
+    public static final String hasAEdge = "/r/HasA";
+    public static final String isAEdge = "/r/IsA";
+    public static final String capableOfEdge = "/r/CapableOf";
+    public static final String desiresEdge = "/r/Desires";
+    public static final String usedForEdge = "/r/UsedFor";
+    public static final String partOfEdge = "/r/PartOf";
+    public static final String hasPropertyEdge = "/r/HasProperty";
+    public static final String memberOfEdge = "/r/MemberOf";
+    public static final String causesEdge = "/r/Causes";
+    public static final String hasSubeventEdge = "/r/HasSubevent";
+    public static final String hasFirstSubeventEdge = "/r/HasFirstSubevent";
+    public static final String hasLastSubeventEdge = "/r/HasLastSubevent";
+    public static final String hasPrerequisiteEdge = "/r/HasPrerequisite";
+    public static final String motivatedByGoalEdge = "/r/MotivatedByGoal";
+    public static final String obstructedByEdge = "/r/ObstructedBy";
+    public static final String createdByEdge = "/r/CreatedBy";
+    public static final String synonymEdge = "/r/Synonym";
+    public static final String antonymEdge = "/r/Antonym";
+    public static final String derivedFromEdge = "/r/DerivedFrom";
+    public static final String translationOfEdge = "/r/TranslationOf";
+    public static final String definedAsEdge = "/r/DefinedAs";
 
     public static ArrayList<String> getEdges() {
 

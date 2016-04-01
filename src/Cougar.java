@@ -13,8 +13,8 @@ import java.util.LinkedList;
 public class Cougar {
 
     /*
-     * findConnection lists all possible relations from one concept, and the concept connected to that relation.
-     * Also lists the ConceptNet5 user score, weight, that this relation holds.
+     * findConnection lists all possible relations from one concept, and the concept connected to that rel.
+     * Also lists the ConceptNet5 user score, weight, that this rel holds.
      */
     public static Collection<Relation> findConnections(String concept) throws IOException, JSONException {
 

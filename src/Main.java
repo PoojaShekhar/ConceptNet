@@ -55,6 +55,25 @@ public class Main {
         test3 = ConceptNet.test("sheep", list);
         System.out.println(test3);
 
+        testAncestorScores();
+    }
 
+    public static void testAncestorScores() throws IOException, JSONException {
+        Set<String> ancs2 = ConceptSimilarity.commonAncestors("sheep", "goat");
+        Set<String> ancs3 = ConceptSimilarity.commonAncestors("sheep", "goat", "frog");
+        System.out.println("ancestors: " + ancs3);
+
+        int score = 0;
+        ArrayList<String> edges = ConceptEdges.getEdges();
+        for (String str : ancs2) {
+            score += ConceptSimilarity.countDescendants(str, edges);
+        }
+        System.out.println("Score for sheep, goat: " + score);
+
+        score = 0;
+        for (String str : ancs3) {
+            score += ConceptSimilarity.countDescendants(str, edges);
+        }
+        System.out.println("Score for sheep, goat, frog: " + score);
     }
 }
