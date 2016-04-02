@@ -37,6 +37,10 @@ public class ConceptNet {
         String s = "http://conceptnet5.media.mit.edu/data/5.4/assoc/c/en/" + concept + "?filter=/c/en/" + conceptCmp + "/.&limit=1";
         URL url = new URL(s);
 
+        String con = conceptCmp;
+        double score = 0;
+        Edge edge = new Edge(con,score);
+
         /*
          * Read the URL
          */
@@ -46,21 +50,23 @@ public class ConceptNet {
             str += scan.nextLine();
         scan.close();
 
-        //
         JSONObject obj = new JSONObject(str);
-        JSONArray array = obj.getJSONArray("similar");
-        String con = (String)array.getJSONArray(0).get(0);
-        double score = (double)array.getJSONArray(0).get(1);
-        Edge edge = new Edge(con,score);
 
+        try {
+            JSONArray array = obj.getJSONArray("similar");
+            con = ((String) array.getJSONArray(0).get(0)).replace("/c/en/","");
+            score = (double) array.getJSONArray(0).get(1);
+            edge = new Edge(con, score);
+        }
+        catch (JSONException ex) {
+
+        }
         return edge;
     }
 
     public static Collection<Edge> test(String concept, ArrayList<String> list) throws IOException, JSONException {
 
         Collection<Edge> coll = new ArrayList<>();
-        Edge edge = similarityScore(concept,concept);
-        coll.add(edge);
 
         for (int i = 0; i < list.size(); i++) {
             Edge currEdge = similarityScore(concept, list.get(i));

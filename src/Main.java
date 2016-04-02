@@ -11,35 +11,37 @@ public class Main {
 
     public static void main(String[] args) throws IOException, JSONException {
 
-        testConceptNetScores();
-        //testConceptNetScore();
+        testConceptNetCount();
+        testConceptNetScore();
         //testAncestorScores();
     }
 
-    public static void testConceptNetScores() throws JSONException, IOException {
+    public static void testConceptNetCount() throws JSONException, IOException {
         Map<String, Integer> map = new HashMap<>();
         ArrayList<String> list = new ArrayList<>();
+        String concept = "bird";
+        int limit = 1000;
         list.add("crab");
         list.add("mouse");
         list.add("dog");
-        map = ConceptScore.getTermsScore("bird", list, 1000);
+        System.out.println("Similarity Count for: " + concept);
+        System.out.println("Comparing " + limit + " features");
+        map = ConceptScore.getTermsCount(concept, list, limit);
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            System.out.println("bird: " + entry.getKey() + " " + entry.getValue());
+            System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
 
     public static void testConceptNetScore() throws JSONException, IOException{
         Collection<Edge> test = new ArrayList<>();
         ArrayList<String> list = new ArrayList<>();
-        list.add("goat");
-        list.add("frog");
-        //list.add("blueberry");
-        try {
-            test = ConceptNet.test("sheep", list);
-        }
-        catch (JSONException ex) {
-            System.out.println(ex);
-        }
+        String concept = "bird";
+        list.add("crab");
+        list.add("mouse");
+        list.add("dog");
+        System.out.println("ConceptNet5 Similarity Score: " + concept);
+        test = ConceptNet.test(concept, list);
+
         for (int i = 0; i < test.size(); i++) {
             System.out.println(((ArrayList<Edge>)test).get(i));
         }

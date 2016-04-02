@@ -46,7 +46,7 @@ public class ConceptScore {
         return list;
     }
 
-    public static Map<String, Integer> getTermsScore(String termOne, String termTwo, int terms) throws IOException, JSONException {
+    public static Map<String, Integer> getTermsCount(String termOne, String termTwo, int terms) throws IOException, JSONException {
 
         Map<String, Integer> termMap = new HashMap<String, Integer>();
 
@@ -66,13 +66,13 @@ public class ConceptScore {
         return termMap;
     }
 
-    public static Map<String, Integer> getTermsScore(String termOne, ArrayList<String> concepts, int limit) throws  JSONException, IOException {
+    public static Map<String, Integer> getTermsCount(String termOne, ArrayList<String> concepts, int limit) throws  JSONException, IOException {
 
         Map<String, Integer> map = new HashMap<>();
         Map<String, Integer> tmpMap = new HashMap<>();
 
         for (int i = 0; i < concepts.size(); i++) {
-            tmpMap = getTermsScore(termOne, concepts.get(i), limit);
+            tmpMap = getTermsCount(termOne, concepts.get(i), limit);
             for (Map.Entry<String, Integer> entry : tmpMap.entrySet()) {
                 map.put(entry.getKey(), entry.getValue());
                 tmpMap.clear();
