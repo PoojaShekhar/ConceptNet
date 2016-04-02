@@ -9,6 +9,7 @@ public class ConceptComparator implements Comparator<String> {
 
     HashMap<String, Integer> map = new HashMap<String, Integer>();
 
+
     public ConceptComparator(HashMap<String, Integer> map){
 
         this.map.putAll(map);

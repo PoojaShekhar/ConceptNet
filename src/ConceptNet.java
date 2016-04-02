@@ -64,14 +64,15 @@ public class ConceptNet {
         return edge;
     }
 
-    public static Collection<Edge> test(String concept, ArrayList<String> list) throws IOException, JSONException {
+    public static List<Edge> getConceptNetScores(String concept, ArrayList<String> list) throws IOException, JSONException {
 
-        Collection<Edge> coll = new ArrayList<>();
+        List<Edge> coll = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
             Edge currEdge = similarityScore(concept, list.get(i));
             coll.add(currEdge);
         }
+        Collections.sort(coll, new EdgeComparator());
 
         return coll;
     }
