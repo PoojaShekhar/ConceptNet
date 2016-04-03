@@ -35,7 +35,7 @@ public class ConceptSimilarity {
         /*
          * The concept we will compare to the list, compareList.
          */
-        String compareItem = ConceptQuery.returnURL(compare,queryCount);
+        String compareItem = ConceptQuery.returnURL(compare,queryCount,0);
         JSONObject objCompareItem = new JSONObject(compareItem);
 
         for (int k = 0; k < queryCount; k++) {
@@ -54,7 +54,7 @@ public class ConceptSimilarity {
             /*
              * The current item from the compareList, compared to the chosen concept.
              */
-            String itemList = ConceptQuery.returnURL(compareList.get(i), queryCount);
+            String itemList = ConceptQuery.returnURL(compareList.get(i), queryCount,0);
             JSONObject objList = new JSONObject(itemList);
 
             for (int k = 0; k < queryCount; k++) {
@@ -189,7 +189,7 @@ public class ConceptSimilarity {
     public static ArrayList<ConceptNode> getAncestors (String parent, String concept) throws IOException, JSONException {
         ArrayList<ConceptNode> ancestors = new ArrayList<>();
 
-        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100);
+        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100,0);
         JSONArray objArray = conceptObj.getJSONArray("edges");
 
         for (int i = 0; i<objArray.length(); i++) {
@@ -208,7 +208,7 @@ public class ConceptSimilarity {
     public static ArrayList<ConceptNode> getDescendants (String parent, String concept, ArrayList<String> edges) throws IOException, JSONException {
         ArrayList<ConceptNode> ancestors = new ArrayList<>();
 
-        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100);
+        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100,0);
         JSONArray objArray = conceptObj.getJSONArray("edges");
 
         for (int i = 0; i<objArray.length(); i++) {
@@ -227,7 +227,7 @@ public class ConceptSimilarity {
     public static int countDescendants (String concept, ArrayList<String> edges) throws IOException, JSONException {
         int count = 0;
 
-        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100000);
+        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100000,0);
         JSONArray objArray = conceptObj.getJSONArray("edges");
 
         for (int i = 0; i<objArray.length(); i++) {

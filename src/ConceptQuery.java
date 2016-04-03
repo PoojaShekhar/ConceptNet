@@ -14,9 +14,10 @@ public class ConceptQuery {
      * limit specifies the length of our ConceptNet5 query.
      * concept is the concept queried.
      */
-    public static String returnURL(String concept, int limit) throws IOException {
+    public static String returnURL(String concept, int limit, int offset) throws IOException {
 
-        String s = "http://conceptnet5.media.mit.edu/data/5.3/c/en/" + concept + "?limit=" + limit;
+        //String s = "http://conceptnet5.media.mit.edu/data/5.4/c/en/" + concept + "?limit=" + limit + "&filter=/c/en";
+        String s = "http://conceptnet5.media.mit.edu/data/5.4/c/en/" + concept + "?offset=" + offset + "&" + limit +  "=5";
         URL url = new URL(s);
 
         /*
@@ -31,8 +32,8 @@ public class ConceptQuery {
         return str;
     }
 
-    public static JSONObject getJSONObject (String concept, int limit) throws IOException, JSONException {
-        String url = returnURL(concept, limit);
+    public static JSONObject getJSONObject (String concept, int limit, int offset) throws IOException, JSONException {
+        String url = returnURL(concept, limit, offset);
 
         return new JSONObject(url);
     }

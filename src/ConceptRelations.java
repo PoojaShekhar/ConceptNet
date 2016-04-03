@@ -21,7 +21,7 @@ public class ConceptRelations {
         int queryCount = 50;
         int childLength = 30;
 
-        String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
+        String conceptQuery = ConceptQuery.returnURL(concept,queryCount,0);
         JSONObject objQuery = new JSONObject(conceptQuery);
 
         for (int i = 0; i < queryCount; i++) {
@@ -51,7 +51,7 @@ public class ConceptRelations {
         int queryCount = 50;
         int parentLength = 30;
 
-        String conceptQuery = ConceptQuery.returnURL(concept,queryCount);
+        String conceptQuery = ConceptQuery.returnURL(concept,queryCount,0);
         JSONObject objQuery = new JSONObject(conceptQuery);
 
         for (int i = 0; i < queryCount; i++) {

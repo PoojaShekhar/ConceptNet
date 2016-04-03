@@ -23,7 +23,7 @@ public class Cougar {
         int queryCount = 50;
 
         try {
-            String conceptQuery = ConceptQuery.returnURL(concept, queryCount);
+            String conceptQuery = ConceptQuery.returnURL(concept, queryCount,0);
             JSONObject objQuery = new JSONObject(conceptQuery);
 
 

@@ -102,7 +102,7 @@ public class ConceptEdges {
         int queryCount = 300;
         int count = 0;
 
-        String compareItem = ConceptQuery.returnURL(concept,queryCount);
+        String compareItem = ConceptQuery.returnURL(concept,queryCount,0);
         JSONObject objCompareItem = new JSONObject(compareItem);
 
         for (int i = 0; i < queryCount; i++) {

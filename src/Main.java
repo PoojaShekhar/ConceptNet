@@ -3,8 +3,10 @@
  */
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -12,23 +14,18 @@ public class Main {
     public static void main(String[] args) throws IOException, JSONException {
 
         //testConceptNetCount();
-        testConceptNetScore();
+        //testConceptNetScore();
         //testAncestorScores();
+        test();
 
-        Chair ch1 = new Chair("chair1", 23.34);
-        Chair ch2 = new Chair("chair2", 23.54);
-        Chair ch3 = new Chair("chair3", 2.23);
-        Chair ch4 = new Chair("chair4", 67.89);
+    }
 
-        List<Chair> list = new ArrayList<>();
-        list.add(ch1);
-        list.add(ch2);
-        list.add(ch3);
-        list.add(ch4);
-        Collections.sort(list, new CompareChair());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(((ArrayList<Chair>)list).get(i));
-        }
+    public static void test() throws JSONException, IOException {
+
+        Collection<Node> test = new ArrayList<>();
+        test = Testing.getNodes("animal", 100, 100, false);
+
+
     }
 
     public static void testConceptNetCount() throws JSONException, IOException {
