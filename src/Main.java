@@ -5,6 +5,7 @@
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -16,8 +17,29 @@ public class Main {
         //testConceptNetCount();
         //testConceptNetScore();
         //testAncestorScores();
-        test();
+        //test();
+        test2();
 
+    }
+
+    public static void test2() throws IOException{
+
+        File file = new File("C:\\Users\\Hoddi\\Desktop\\animal.txt");
+        Scanner scanner = new Scanner(file);
+        Collection<Node> nodeColl = new ArrayList<>();
+
+        while (scanner.hasNext()) {
+            String parent = scanner.next();
+            String child = scanner.next();
+            String relation = scanner.next();
+            Double weight = Double.parseDouble(scanner.next());
+            Node newNode = new Node(parent, child, relation, weight);
+            nodeColl.add(newNode);
+        }
+
+        for (int i = 0; i < nodeColl.size(); i++) {
+            System.out.println(((ArrayList<Node>)nodeColl).get(i));
+        }
     }
 
     public static void test() throws JSONException, IOException {
