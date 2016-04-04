@@ -40,7 +40,7 @@ public class ConceptNode {
 //        if (this.parent == null) hash = hash * prime + prime;
 //        else hash = hash * prime + this.parent.start.hashCode();
 //        hash = hash * prime + this.start.hashCode();
-        hash = hash * prime + this.rel.hashCode();
+//        hash = hash * prime + this.rel.hashCode();
         hash = hash * prime + this.end.hashCode();
 //        hash = hash * prime + (int)this.weight;
 

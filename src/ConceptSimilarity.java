@@ -86,10 +86,11 @@ public class ConceptSimilarity {
 
     public static Set<ConceptNode> commonAncestors (String[] concepts, String concept) throws IOException, JSONException {
         Set<ConceptNode> commonAncestors = new HashSet<>();
+        ArrayList<String> edges = ConceptEdges.getEdgesTest();
 
         ArrayList<Set<ConceptNode>> ancestorList = new ArrayList<>();
         for (int i = 0; i<concepts.length; i++) {
-            ancestorList.add(new HashSet<>(getAncestors(null, concepts[i])));
+            ancestorList.add(new HashSet<>(getAncestors(null, concepts[i], edges)));
         }
 
         Set<ConceptNode> tmp = new HashSet<>();
@@ -116,7 +117,7 @@ public class ConceptSimilarity {
                 tmp.clear();
                 for (ConceptNode anc : ancestorList.get(i)) {
                     if (!anc.start.equals("animal"))
-                        tmp.addAll(getAncestors(anc, anc.end));
+                        tmp.addAll(getAncestors(anc, anc.end, edges));
                 }
                 ancestorList.get(i).addAll(tmp);
             }
@@ -134,7 +135,7 @@ public class ConceptSimilarity {
     }
 
 
-    public static ArrayList<ConceptNode> getAncestors (ConceptNode parent, String concept) throws IOException, JSONException {
+    public static ArrayList<ConceptNode> getAncestors (ConceptNode parent, String concept, ArrayList<String> edges) throws IOException, JSONException {
         ArrayList<ConceptNode> ancestors = new ArrayList<>();
 
         JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100,0);
@@ -145,7 +146,7 @@ public class ConceptSimilarity {
             String rel = objArray.getJSONObject(i).get("rel").toString();
             String end = objArray.getJSONObject(i).get("end").toString();
             double weight = objArray.getJSONObject(i).getDouble("weight");
-            if (rel.equals("/r/IsA") /*&& start.equals("/c/en/" + concept)*/ /*&& weight > 1.6*/) {
+            if (edges.contains(rel) /*&& start.equals("/c/en/" + concept)*/ /*&& weight > 1.6*/) {
                 ancestors.add(new ConceptNode(parent, start.replaceAll("/c/en/","").replaceAll("/n/.*", ""), rel, end.replaceAll("/c/en/","").replaceAll("/n/.*", ""), weight));
             }
         }

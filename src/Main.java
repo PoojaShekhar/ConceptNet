@@ -126,6 +126,16 @@ public class Main {
         ancStr.clear();
         for (ConceptNode node : ancs)
             ancStr.add(node.end);
-        System.out.println("ancestors: " + ancStr);
+        System.out.println("ancestors " + ancs.size() + ": " + ancStr);
+
+        System.out.println("paths?");
+        for (ConceptNode node : ancs) {
+            ConceptNode nice = node;
+            while (nice != null) {
+                System.out.println(nice.toString());
+                nice = nice.parent;
+            }
+            System.out.println();
+        }
     }
 }

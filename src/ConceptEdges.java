@@ -76,6 +76,37 @@ public class ConceptEdges {
         return collection;
     }
 
+    public static ArrayList<String> getEdgesTest() {
+
+        ArrayList<String> collection = new ArrayList<>();
+
+        //collection.add(atLocationEdge);
+        //collection.add(relatedToEdge);
+        //collection.add(hasAEdge);
+        collection.add(isAEdge);
+        //collection.add(capableOfEdge);
+        //collection.add(desiresEdge);
+        //collection.add(usedForEdge);
+        //collection.add(partOfEdge);
+        collection.add(hasPropertyEdge);
+        //collection.add(memberOfEdge);
+        //collection.add(causesEdge);
+        //collection.add(hasSubeventEdge);
+        //collection.add(hasFirstSubeventEdge);
+        //collection.add(hasLastSubeventEdge);
+        //collection.add(hasPrerequisiteEdge);
+        //collection.add(motivatedByGoalEdge);
+        //collection.add(obstructedByEdge);
+        //collection.add(createdByEdge);
+        //collection.add(synonymEdge);
+        //collection.add(antonymEdge);
+        //collection.add(derivedFromEdge);
+        //collection.add(translationOfEdge);
+        //collection.add(definedAsEdge);
+
+        return collection;
+    }
+
     /*
      * Used to convert TreeMap<String, Integer> to a Collection of Edge(String, Double).
      */
