@@ -52,7 +52,7 @@ public class ConceptEdges {
         collection.add(atLocationEdge);
         //collection.add(relatedToEdge);
         collection.add(hasAEdge);
-        collection.add(isAEdge);
+        //collection.add(isAEdge);
         collection.add(capableOfEdge);
         collection.add(desiresEdge);
         collection.add(usedForEdge);
@@ -67,8 +67,8 @@ public class ConceptEdges {
         collection.add(motivatedByGoalEdge);
         collection.add(obstructedByEdge);
         collection.add(createdByEdge);
-        collection.add(synonymEdge);
-        collection.add(antonymEdge);
+        //collection.add(synonymEdge);
+        //collection.add(antonymEdge);
         collection.add(derivedFromEdge);
         //collection.add(translationOfEdge);
         collection.add(definedAsEdge);
@@ -88,7 +88,7 @@ public class ConceptEdges {
         //collection.add(desiresEdge);
         //collection.add(usedForEdge);
         //collection.add(partOfEdge);
-        collection.add(hasPropertyEdge);
+        //collection.add(hasPropertyEdge);
         //collection.add(memberOfEdge);
         //collection.add(causesEdge);
         //collection.add(hasSubeventEdge);
