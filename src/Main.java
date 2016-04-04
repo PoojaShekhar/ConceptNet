@@ -105,30 +105,13 @@ public class Main {
         int score = 0;
         ArrayList<String> edges = ConceptEdges.getEdges();
 
-        /*Set<String> ancs2 = ConceptSimilarity.commonAncestors("sheep", "goat");
-        System.out.println("ancestors: " + ancs2);
+        Set<ConceptNode> ancs = ConceptSimilarity.commonAncestors(new String[]{"sheep", "lion"}, "");
+        Set<String> ancStr = new HashSet<>();
+        for (ConceptNode node : ancs)
+            ancStr.add(node.end);
+        System.out.println("ancestors " + ancs.size() + ": " + ancStr);
 
-        // anc2
-        score = 0;
-        for (String str : ancs2) {
-            score += ConceptSimilarity.countDescendants(str, edges);
-        }
-        System.out.println("EDGE COUNT FOR ANCESTOR2: " + score);*/
-
-        /*Set<String> ancs3 = ConceptSimilarity.commonAncestors("beet", "red_pepper", "radish");
-        System.out.println("ancestors: " + ancs3);
-
-        // anc3
-        score = 0;
-        for (String str : ancs3) {
-            score += ConceptSimilarity.countDescendants(str, edges);
-        }
-        System.out.println("EDGE COUNT FOR ANCESTOR3: " + score);*/
-
-        Set<ConceptNode> ancs = ConceptSimilarity.commonAncestors(new String[]{"sheep", "lion"},"nice");
-        System.out.println("ancestors " + ancs.size() + ": " + ancs);
         System.out.println("paths?");
-
         for (ConceptNode node : ancs) {
             ConceptNode nice = node;
             while (nice != null) {
@@ -139,7 +122,10 @@ public class Main {
         }
 
         System.out.println();
-        ancs = ConceptSimilarity.commonAncestors(new String[]{"goat", "sheep"},"nice");
-        System.out.println("ancestors: " + ancs);
+        ancs = ConceptSimilarity.commonAncestors(new String[]{"goat", "sheep"}, "");
+        ancStr.clear();
+        for (ConceptNode node : ancs)
+            ancStr.add(node.end);
+        System.out.println("ancestors: " + ancStr);
     }
 }
