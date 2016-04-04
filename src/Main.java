@@ -27,6 +27,7 @@ public class Main {
         File file = new File("C:\\Users\\Hoddi\\Desktop\\animal.txt");
         Scanner scanner = new Scanner(file);
         Collection<Node> nodeColl = new ArrayList<>();
+        Collection<Node> nodeRel = new ArrayList<>();
 
         while (scanner.hasNext()) {
             String parent = scanner.next();
@@ -38,7 +39,16 @@ public class Main {
         }
 
         for (int i = 0; i < nodeColl.size(); i++) {
-            System.out.println(((ArrayList<Node>)nodeColl).get(i));
+            for (int k = 0; k < nodeColl.size(); k++) {
+                if (((ArrayList<Node>)nodeColl).get(i).child.equals(((ArrayList<Node>)nodeColl).get(k).parent)) {
+                    nodeRel.add(((ArrayList<Node>)nodeColl).get(i));
+                    nodeRel.add(((ArrayList<Node>)nodeColl).get(k));
+                }
+            }
+        }
+
+        for (int i = 0; i < nodeRel.size(); i++) {
+            System.out.println(((ArrayList<Node>)nodeRel).get(i));
         }
     }
 
