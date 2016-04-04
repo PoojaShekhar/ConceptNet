@@ -11,6 +11,12 @@ import java.util.Collection;
  */
 public class Testing {
 
+    /*
+     * Search for parent or children from a specific concept.
+     * Tries to fetch the exact amount of children or parents, specified in limit,
+     * by incrementing the search query if it can't find the required amount in the first query.
+     */
+
     public static Collection<Node> getNodes(String concept, int limit, int searchSpace, boolean searchDown) throws JSONException, IOException {
 
         String conceptChild = "";
@@ -39,7 +45,7 @@ public class Testing {
                 if (searchDown) {
                     if (concept.equals(conceptParent.replace("/c/en/",""))) {
                         if (conceptChild.contains("/c/en/") && conceptParent.contains("/c/en")) {
-                            if (conceptChild.length() < 30 && conceptParent.length() < 30) {
+                            if (conceptChild.length() < 30 && conceptParent.length() < 30 && conceptWeight > 1.6) {
                                 Node node = new Node(conceptParent.replace("/c/en/", ""), conceptChild.replace("/c/en/", ""), conceptRelation.replace("/r/", ""), conceptWeight);
                                 if (!nodeCollection.contains(node) && !(nodeCollection.size() == limit)) {
                                     nodeCollection.add(node);
@@ -51,7 +57,7 @@ public class Testing {
                 if (!searchDown) {
                     if (concept.equals(conceptChild.replace("/c/en/", ""))) {
                         if (conceptChild.contains("/c/en/") && conceptParent.contains("/c/en")) {
-                            if (conceptChild.length() < 30 && conceptParent.length() < 30) {
+                            if (conceptChild.length() < 30 && conceptParent.length() < 30 && conceptWeight > 1.6) {
                                 Node node = new Node(conceptParent.replace("/c/en/", ""), conceptChild.replace("/c/en/", ""), conceptRelation.replace("/r/", ""), conceptWeight);
                                 if (!nodeCollection.contains(node) && !(nodeCollection.size() == limit)) {
                                     nodeCollection.add(node);
@@ -80,28 +86,45 @@ public class Testing {
         return nodeCollection;
     }
 
-    public static Collection<Collection<Node>> getNodeChildrens(String concept, int limit, int branching) throws JSONException, IOException {
+    public static Collection<Node> getNodeChildrens(String concept, int limit, int searchSpace) throws JSONException, IOException {
 
-        Collection<Collection<Node>> connectionsCollection = new ArrayList<>();
+        Collection<Node> connectionsCollection = new ArrayList<>();
         Collection<Node> nodes = new ArrayList<>();
         Collection<Node> nodesTmp = new ArrayList<>();
-        Collection<Node> nodeChildren = new ArrayList<>();
+        Collection<Node> nodesTmp2 = new ArrayList<>();
+        Collection<Node> nodesTmp3 = new ArrayList<>();
+        Collection<Node> nodesTmp4 = new ArrayList<>();
+        Collection<Node> nodesTmp5 = new ArrayList<>();
 
-        nodes = getNodes(concept,limit, 100, true);
-        while (true) {
-            for (Node oldNode : nodes) {
-                nodesTmp = getNodes(oldNode.child, branching, 100, true);
-                nodeChildren.add(oldNode);
-                for (Node nextNode : nodesTmp) {
-                    if (oldNode.child.equals(nextNode.parent)) {
-                        Node newNode = new Node(oldNode.child, nextNode.child, nextNode.relation, nextNode.weight);
-                        nodeChildren.add(newNode);
+        nodes = getNodes(concept, limit, searchSpace, true);
+        for (Node oldNodes : nodes) {
+            connectionsCollection.add(oldNodes);
+            System.out.println("Children of " + oldNodes.child);
+            nodesTmp = getNodes(oldNodes.child, limit, searchSpace, true);
+            for (Node newNode: nodesTmp) {
+                connectionsCollection.add(newNode);
+                System.out.println("Children of " + newNode.child);
+                nodesTmp2 = getNodes(newNode.child, limit, searchSpace, true);
+                for (Node newestNode : nodesTmp2) {
+                    connectionsCollection.add(newestNode);
+                    System.out.println("Children of " + newestNode.child);
+                    nodesTmp3 = getNodes(newestNode.child, limit, searchSpace, true);
+                    for (Node newest2Node : nodesTmp3) {
+                        connectionsCollection.add(newest2Node);
+                        System.out.println("Children of " + newest2Node.child);
+                        nodesTmp4 = getNodes(newest2Node.child, limit, searchSpace, true);
+                        for (Node newest3Node : nodesTmp4) {
+                            connectionsCollection.add(newest3Node);
+                            System.out.println("Children of " + newest3Node.child);
+                            nodesTmp5 = getNodes(newest3Node.child, limit, searchSpace, true);
+                        }
                     }
                 }
             }
-            System.out.println("Printing connections");
-            connectionsCollection.add(nodeChildren);
-            return connectionsCollection;
         }
+        System.out.println("----------------------");
+        System.out.println("RETURNING CONNECTIONS FOR " + concept);
+        System.out.println("-----------------------");
+        return connectionsCollection;
     }
 }

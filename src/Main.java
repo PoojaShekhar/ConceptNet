@@ -23,7 +23,12 @@ public class Main {
     public static void test() throws JSONException, IOException {
 
         Collection<Node> test = new ArrayList<>();
-        test = Testing.getNodes("animal", 100, 100, false);
+        test = Testing.getNodeChildrens("animal", 10, 100);
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(((ArrayList<Node>)test).get(i));
+        }
+
+
 
 
     }
