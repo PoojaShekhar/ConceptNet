@@ -2,60 +2,103 @@
  * Created by Hoddi on 16.3.2016.
  */
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
 
-    public static Collection<Relation> putProb(Collection<Relation> rel, Collection<Edge> prob) {
-
-        Collection<Relation> newRel = new ArrayList<>();
-        for (int i = 0; i < rel.size(); i++) {
-            Relation tmpRel = ((ArrayList<Relation>) rel).get(i);
-            for (int k = 0; k < prob.size(); k++) {
-                Edge tmpEdge = ((ArrayList<Edge>)prob).get(k);
-                if (tmpRel.relation.contains(tmpEdge.name.replaceAll("- /r/", ""))) {
-                    tmpRel.prob = tmpEdge.value;
-                    newRel.add(tmpRel);
-                }
-            }
-        }
-        return newRel;
-    }
-
     public static void main(String[] args) throws IOException, JSONException {
 
+        //testConceptNetCount();
+        //testConceptNetScore();
+        //testAncestorScores();
+        //test();
+        test2();
+
+    }
+
+    public static void test2() throws IOException{
+
+        File file = new File("C:\\Users\\Hoddi\\Desktop\\animal.txt");
+        Scanner scanner = new Scanner(file);
+        Collection<Node> nodeColl = new ArrayList<>();
+        Collection<Node> nodeRel = new ArrayList<>();
+
+        while (scanner.hasNext()) {
+            String parent = scanner.next();
+            String relation = scanner.next();
+            String child = scanner.next();
+            Double weight = Double.parseDouble(scanner.next());
+            Node newNode = new Node(parent, child, relation, weight);
+            nodeColl.add(newNode);
+        }
+
+        for (int k = 0; k < nodeColl.size(); k++) {
+            if (((ArrayList<Node>)nodeColl).get(0).child.equals(((ArrayList<Node>)nodeColl).get(k).parent)) {
+                nodeRel.add(((ArrayList<Node>)nodeColl).get(0));
+                nodeRel.add(((ArrayList<Node>)nodeColl).get(k));
+            }
+        }
+
+        System.out.println(((ArrayList<Node>)nodeColl).get(0).child);
+        System.out.println(((ArrayList<Node>)nodeColl).get(3).parent);
+        for (int i = 0; i < nodeRel.size(); i++) {
+            System.out.println(((ArrayList<Node>)nodeRel).get(i));
+        }
+
+        for (int i = 0; i < nodeColl.size(); i++) {
+            System.out.println(((ArrayList<Node>)nodeColl).get(i));
+        }
+    }
+
+    public static void test() throws JSONException, IOException {
+
+        Collection<Node> test = new ArrayList<>();
+        test = Testing.getNodeChildrens("animal", 10, 100);
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(((ArrayList<Node>)test).get(i));
+        }
+
+
+
+
+    }
+
+    public static void testConceptNetCount() throws JSONException, IOException {
+        Map<String, Integer> map = new HashMap<>();
+        ArrayList<String> list = new ArrayList<>();
+        String concept = "bird";
+        int limit = 1000;
+        list.add("crab");
+        list.add("mouse");
+        list.add("dog");
+
+        System.out.println("Similarity Count for: " + concept);
+        System.out.println("Comparing " + limit + " features");
+        map = ConceptScore.getTermsCount(concept, list, limit);
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+    }
+
+    public static void testConceptNetScore() throws JSONException, IOException{
         Collection<Edge> test = new ArrayList<>();
         ArrayList<String> list = new ArrayList<>();
-        list.add("goat");
-        list.add("squirrel");
-        list.add("crocodile");
-        list.add("chicken");
-        list.add("frog");
-        list.add("whale");
-        list.add("salmon");
+        String concept = "bird";
         list.add("crab");
-        list.add("spider");
-        list.add("cow");
-        list.add("horse");
+        list.add("mouse");
         list.add("dog");
-        list.add("cat");
-        list.add("ant");
+        System.out.println("ConceptNet5 Similarity Score: " + concept);
+        test = ConceptNet.getConceptNetScores(concept, list);
 
-//        TreeMap<String,Integer> test2 = new TreeMap<>();
-//        test2 = ConceptSimilarity.returnSimilar("sheep",list);
-//        System.out.println(test2);
-//
-//        Collection<Edge> test3 = new ArrayList<Edge>();
-//        test3 = ConceptNet.test("sheep", list);
-//        System.out.println(test3);
-
-        testAncestorScores();
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(((ArrayList<Edge>)test).get(i));
+        }
     }
 
     public static void testAncestorScores() throws IOException, JSONException {

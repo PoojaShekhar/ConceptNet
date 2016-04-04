@@ -13,6 +13,6 @@ public class Edge {
 
     @Override
     public String toString() {
-        return (name + " " + value + "\n");
+        return (name + " " + value);
     }
 }
