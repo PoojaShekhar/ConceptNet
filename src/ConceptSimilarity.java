@@ -235,10 +235,12 @@ public class ConceptSimilarity {
         JSONArray objArray = conceptObj.getJSONArray("edges");
 
         for (int i = 0; i<objArray.length(); i++) {
+            String start = objArray.getJSONObject(i).get("start").toString();
             String rel = objArray.getJSONObject(i).get("rel").toString();
             String end = objArray.getJSONObject(i).get("end").toString();
             double weight = objArray.getJSONObject(i).getDouble("weight");
-            if (edges.contains(rel) /*&& end.equals("/c/en/" + concept)*/ /*&& weight > 1.6*/) {
+            if (edges.contains(rel) && start.equals("/c/en/" + concept) /*&& weight > 1.6*/) {
+                //System.out.println("Counting attribute for " + concept + ": " + end);
                 count++;
             }
         }
@@ -264,6 +266,7 @@ public class ConceptSimilarity {
         for (String ancStr : ancestorMap.keySet()) {
             for (ConceptNode node : conceptAttrs) {
                 if (ancestorMap.get(ancStr).contains(node)) {
+                    //System.out.println("Found common attribute for " + ancStr + ": " + node.start + " -" + node.rel + "-> " + node.end);
                     commonAttributes.put(ancStr, commonAttributes.get(ancStr) + 1);
                 }
             }
