@@ -16,9 +16,9 @@ public class Main {
 
         //testConceptNetCount();
         //testConceptNetScore();
-        //testAncestorScores();
+        testAncestorScores();
         //test();
-        test2();
+        //test2();
 
     }
 
@@ -115,7 +115,7 @@ public class Main {
         }
         System.out.println("EDGE COUNT FOR ANCESTOR2: " + score);*/
 
-        Set<String> ancs3 = ConceptSimilarity.commonAncestors("beet", "red_pepper", "radish");
+        /*Set<String> ancs3 = ConceptSimilarity.commonAncestors("beet", "red_pepper", "radish");
         System.out.println("ancestors: " + ancs3);
 
         // anc3
@@ -123,6 +123,23 @@ public class Main {
         for (String str : ancs3) {
             score += ConceptSimilarity.countDescendants(str, edges);
         }
-        System.out.println("EDGE COUNT FOR ANCESTOR3: " + score);
+        System.out.println("EDGE COUNT FOR ANCESTOR3: " + score);*/
+
+        Set<ConceptNode> ancs = ConceptSimilarity.commonAncestors(new String[]{"sheep", "lion"},"nice");
+        System.out.println("ancestors " + ancs.size() + ": " + ancs);
+        System.out.println("paths?");
+
+        for (ConceptNode node : ancs) {
+            ConceptNode nice = node;
+            while (nice != null) {
+                System.out.println(nice.toString());
+                nice = nice.parent;
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+        ancs = ConceptSimilarity.commonAncestors(new String[]{"goat", "sheep"},"nice");
+        System.out.println("ancestors: " + ancs);
     }
 }
