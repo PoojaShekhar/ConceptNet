@@ -47,33 +47,39 @@ public class Main {
         list.add("cat");
         list.add("ant");
 
-        TreeMap<String,Integer> test2 = new TreeMap<>();
-        test2 = ConceptSimilarity.returnSimilar("sheep",list);
-        System.out.println(test2);
-
-        Collection<Edge> test3 = new ArrayList<Edge>();
-        test3 = ConceptNet.test("sheep", list);
-        System.out.println(test3);
+//        TreeMap<String,Integer> test2 = new TreeMap<>();
+//        test2 = ConceptSimilarity.returnSimilar("sheep",list);
+//        System.out.println(test2);
+//
+//        Collection<Edge> test3 = new ArrayList<Edge>();
+//        test3 = ConceptNet.test("sheep", list);
+//        System.out.println(test3);
 
         testAncestorScores();
     }
 
     public static void testAncestorScores() throws IOException, JSONException {
-        Set<String> ancs2 = ConceptSimilarity.commonAncestors("sheep", "goat");
-        Set<String> ancs3 = ConceptSimilarity.commonAncestors("sheep", "goat", "frog");
-        System.out.println("ancestors: " + ancs3);
-
         int score = 0;
         ArrayList<String> edges = ConceptEdges.getEdges();
+
+        /*Set<String> ancs2 = ConceptSimilarity.commonAncestors("sheep", "goat");
+        System.out.println("ancestors: " + ancs2);
+
+        // anc2
+        score = 0;
         for (String str : ancs2) {
             score += ConceptSimilarity.countDescendants(str, edges);
         }
-        System.out.println("Score for sheep, goat: " + score);
+        System.out.println("EDGE COUNT FOR ANCESTOR2: " + score);*/
 
+        Set<String> ancs3 = ConceptSimilarity.commonAncestors("beet", "red_pepper", "radish");
+        System.out.println("ancestors: " + ancs3);
+
+        // anc3
         score = 0;
         for (String str : ancs3) {
             score += ConceptSimilarity.countDescendants(str, edges);
         }
-        System.out.println("Score for sheep, goat, frog: " + score);
+        System.out.println("EDGE COUNT FOR ANCESTOR3: " + score);
     }
 }

@@ -88,9 +88,9 @@ public class ConceptSimilarity {
         System.out.println("commonAncestors3:");
         Set<String> commonAncestors = new HashSet<>();
 
-        ArrayList<ConceptNode> ancestors1 = getAncestors("null", concept1);
-        ArrayList<ConceptNode> ancestors2 = getAncestors("null", concept2);
-        ArrayList<ConceptNode> ancestors3 = getAncestors("null", concept3);
+        Set<ConceptNode> ancestors1 = new HashSet<>(getAncestors("null", concept1));
+        Set<ConceptNode> ancestors2 = new HashSet<>(getAncestors("null", concept2));
+        Set<ConceptNode> ancestors3 = new HashSet<>(getAncestors("null", concept3));
 
         Set<ConceptNode> tmp = new HashSet<>();
 
@@ -114,6 +114,7 @@ public class ConceptSimilarity {
                     }
                 }
             }
+            if (!commonAncestors.isEmpty()) break;
 
             // expand first concept
             tmp.clear();
@@ -144,8 +145,8 @@ public class ConceptSimilarity {
         System.out.println("commonAncestors2:");
         Set<String> commonAncestors = new HashSet<>();
 
-        ArrayList<ConceptNode> ancestors1 = getAncestors("null", concept1);
-        ArrayList<ConceptNode> ancestors2 = getAncestors("null", concept2);
+        Set<ConceptNode> ancestors1 = new HashSet<>(getAncestors("null", concept1));
+        Set<ConceptNode> ancestors2 = new HashSet<>(getAncestors("null", concept2));
 
         Set<ConceptNode> tmp = new HashSet<>();
 
@@ -166,6 +167,7 @@ public class ConceptSimilarity {
                     }
                 }
             }
+            if (!commonAncestors.isEmpty()) break;
 
             // expand first concept
             tmp.clear();
@@ -185,11 +187,68 @@ public class ConceptSimilarity {
         return commonAncestors;
     }
 
+    public static Set<String> commonAncestors (ArrayList<String> conceptList) throws IOException, JSONException {
+        System.out.println("commonAncestors3:");
+        Set<String> commonAncestors = new HashSet<>();
+
+        ArrayList<Set<ConceptNode>> ancestorList = new ArrayList<>();
+        for (int i = 0; i<ancestorList.size(); i++) {
+            ancestorList.add(new HashSet<>(getAncestors("null", conceptList.get(i))));
+        }
+
+        Set<ConceptNode> tmp = new HashSet<>();
+
+        int depth = 0;
+        while(depth < 4) {
+            depth++;
+            System.out.println("Depth: " + depth);
+
+            // Check for any ancestors
+            for (int i = 0; i < ancestorList.size(); i++) {
+                for (int j = i+1; j < ancestorList.size(); j++) {
+                    for (ConceptNode node : ancestorList.get(j)) {
+                        if (ancestorList.get(i).contains(node)) {
+                            System.out.println("Found ancestor: " + node.end);
+                            commonAncestors.add(node.end);
+                        }
+                        else {
+
+                        }
+                    }
+                }
+            }
+            if (!commonAncestors.isEmpty()) break;
+
+            // expand first concept
+            tmp.clear();
+            for (ConceptNode anc : ancestors1) {
+                tmp.addAll(getAncestors(anc.start, anc.end));
+            }
+            ancestors1.addAll(tmp);
+
+            // expand second concept
+            tmp.clear();
+            for (ConceptNode anc : ancestors2) {
+                tmp.addAll(getAncestors(anc.start, anc.end));
+            }
+            ancestors2.addAll(tmp);
+
+            // expand third concept
+            tmp.clear();
+            for (ConceptNode anc : ancestors3) {
+                tmp.addAll(getAncestors(anc.start, anc.end));
+            }
+            ancestors3.addAll(tmp);
+        }
+
+        return commonAncestors;
+    }
+
 
     public static ArrayList<ConceptNode> getAncestors (String parent, String concept) throws IOException, JSONException {
         ArrayList<ConceptNode> ancestors = new ArrayList<>();
 
-        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100);
+        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 50);
         JSONArray objArray = conceptObj.getJSONArray("edges");
 
         for (int i = 0; i<objArray.length(); i++) {
@@ -197,7 +256,7 @@ public class ConceptSimilarity {
             String rel = objArray.getJSONObject(i).get("rel").toString();
             String end = objArray.getJSONObject(i).get("end").toString();
             double weight = objArray.getJSONObject(i).getDouble("weight");
-            if (rel.equals("/r/IsA") && start.equals("/c/en/" + concept) && weight > 1.6) {
+            if (rel.equals("/r/IsA") /*&& start.equals("/c/en/" + concept)*/ /*&& weight > 1.6*/) {
                 ancestors.add(new ConceptNode(parent, start.replaceAll("/c/en/",""), rel, end.replaceAll("/c/en/","")));
             }
         }
