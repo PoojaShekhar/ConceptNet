@@ -61,6 +61,11 @@ public class ConceptScore {
                 }
             }
         }
+        if (tmpUniq.size() < 15) {
+            for (int i = 0; i < tmpUniq.size(); i++) {
+                System.out.println(tmpUniq.get(i));
+            }
+        }
         termMap.put(termTwo, tmpUniq.size());
 
         return termMap;

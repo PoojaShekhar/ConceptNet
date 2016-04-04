@@ -16,8 +16,24 @@ public class ConceptQuery {
      */
     public static String returnURL(String concept, int limit, int offset) throws IOException {
 
-        //String s = "http://conceptnet5.media.mit.edu/data/5.4/c/en/" + concept + "?limit=" + limit + "&filter=/c/en";
         String s = "http://conceptnet5.media.mit.edu/data/5.4/c/en/" + concept + "?offset=" + offset + "&" + limit +  "=5";
+        URL url = new URL(s);
+
+        /*
+         * Read the URL
+         */
+        Scanner scan = new Scanner(url.openStream());
+        String str = new String();
+        while (scan.hasNext())
+            str += scan.nextLine();
+        scan.close();
+
+        return str;
+    }
+
+    public static String returnIsAURL(String concept, int limit) throws IOException {
+
+        String s = "http://conceptnet5.media.mit.edu/data/5.4/search?rel=/r/IsA&start=/c/en/" + concept + "&limit=" + limit + "";
         URL url = new URL(s);
 
         /*

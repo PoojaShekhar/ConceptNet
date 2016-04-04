@@ -24,7 +24,7 @@ public class Main {
 
     public static void test2() throws IOException{
 
-        File file = new File("C:\\Users\\Hoddi\\Desktop\\animal.txt");
+        File file = new File("animal.txt");
         Scanner scanner = new Scanner(file);
         Collection<Node> nodeColl = new ArrayList<>();
         Collection<Node> nodeRel = new ArrayList<>();
@@ -38,22 +38,28 @@ public class Main {
             nodeColl.add(newNode);
         }
 
-        for (int k = 0; k < nodeColl.size(); k++) {
-            if (((ArrayList<Node>)nodeColl).get(0).child.equals(((ArrayList<Node>)nodeColl).get(k).parent)) {
-                nodeRel.add(((ArrayList<Node>)nodeColl).get(0));
-                nodeRel.add(((ArrayList<Node>)nodeColl).get(k));
-            }
-        }
-
-        System.out.println(((ArrayList<Node>)nodeColl).get(0).child);
-        System.out.println(((ArrayList<Node>)nodeColl).get(3).parent);
-        for (int i = 0; i < nodeRel.size(); i++) {
-            System.out.println(((ArrayList<Node>)nodeRel).get(i));
-        }
-
         for (int i = 0; i < nodeColl.size(); i++) {
             System.out.println(((ArrayList<Node>)nodeColl).get(i));
         }
+        System.out.println(nodeColl.size());
+
+        Collection<Node> coll = new ArrayList<>();
+        coll.add(((ArrayList<Node>)nodeColl).get(0));
+        String tmp = ((ArrayList<Node>)nodeColl).get(2).child;
+        String tmp2 = ((ArrayList<Node>)nodeColl).get(3).parent;
+
+        for (int i = 0; i < nodeColl.size(); i++) {
+            if (tmp.equals(((ArrayList<Node>) nodeColl).get(i).parent)) {
+                coll.add(((ArrayList<Node>) nodeColl).get(i));
+                tmp = ((ArrayList<Node>) nodeColl).get(i).parent;
+            }
+        }
+
+        for (int i = 0; i < coll.size(); i++) {
+            System.out.println(((ArrayList<Node>)coll).get(i));
+        }
+        System.out.println(tmp);
+        System.out.println(tmp2);
     }
 
     public static void test() throws JSONException, IOException {
@@ -63,20 +69,21 @@ public class Main {
         for (int i = 0; i < test.size(); i++) {
             System.out.println(((ArrayList<Node>)test).get(i));
         }
-
-
-
-
     }
 
     public static void testConceptNetCount() throws JSONException, IOException {
         Map<String, Integer> map = new HashMap<>();
         ArrayList<String> list = new ArrayList<>();
-        String concept = "bird";
+        String concept = "sheep";
         int limit = 1000;
         list.add("crab");
         list.add("mouse");
         list.add("dog");
+        list.add("goat");
+        list.add("cow");
+        list.add("parrot");
+        list.add("car");
+        list.add("apple");
 
         System.out.println("Similarity Count for: " + concept);
         System.out.println("Comparing " + limit + " features");
