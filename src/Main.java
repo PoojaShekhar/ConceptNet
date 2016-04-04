@@ -39,7 +39,7 @@ public class Main {
         }
 
         for (int k = 0; k < nodeColl.size(); k++) {
-            if (((ArrayList<Node>)nodeColl).get(0).child.equals(((ArrayList<Node>)nodeColl).get(k).parent)) {
+            if (((ArrayList<Node>)nodeColl).get(2).child.equals(((ArrayList<Node>)nodeColl).get(k).parent)) {
                 nodeRel.add(((ArrayList<Node>)nodeColl).get(0));
                 nodeRel.add(((ArrayList<Node>)nodeColl).get(k));
             }
