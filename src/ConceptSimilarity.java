@@ -84,109 +84,113 @@ public class ConceptSimilarity {
         return sortedMap;
     }
 
-    public static Set<String> commonAncestors (String concept1, String concept2, String concept3) throws IOException, JSONException {
-        System.out.println("commonAncestors3:");
-        Set<String> commonAncestors = new HashSet<>();
+    public static Set<ConceptNode> commonAncestors (String[] concepts) throws IOException, JSONException {
+        Set<ConceptNode> commonAncestors = new HashSet<>();
+        ArrayList<String> edges = ConceptEdges.getEdgesTest();
 
-        ArrayList<ConceptNode> ancestors1 = getAncestors("null", concept1);
-        ArrayList<ConceptNode> ancestors2 = getAncestors("null", concept2);
-        ArrayList<ConceptNode> ancestors3 = getAncestors("null", concept3);
+        ArrayList<Set<ConceptNode>> ancestorList = new ArrayList<>();
+        for (int i = 0; i<concepts.length; i++) {
+            ancestorList.add(new HashSet<>(getAncestors(null, concepts[i])));
+        }
 
         Set<ConceptNode> tmp = new HashSet<>();
 
-        int depth = 0;
+        int depth = 1;
         while(depth < 4) {
-            depth++;
             System.out.println("Depth: " + depth);
 
-            // Check for any ancestors
-            for (ConceptNode x : ancestors1) {
-                for (ConceptNode y : ancestors2) {
-                    for (ConceptNode z : ancestors3) {
-                        if (x.end.equals(y.end) && x.end.equals(z.end)) {
-                            if (!commonAncestors.contains(x.end)) {
-                                System.out.println("Found ancestor: " + x.end + "; { (" + x.start + " " + x.rel + ", p: " + x.parent
-                                                                                + "), (" + y.start + " " + y.rel + ", p: " + y.parent
-                                                                                + "), (" + z.start + " " + z.rel + ", p: " + z.parent + ") }");
-                                commonAncestors.add(x.end);
-                            }
+            // Check for ancestors between two concepts
+            for (int i = 0; i < ancestorList.size(); i++) {
+                for (int j = i+1; j < ancestorList.size(); j++) {
+                    for (ConceptNode node : ancestorList.get(j)) {
+                        if (!commonAncestors.contains(node) && ancestorList.get(i).contains(node)) {
+                            System.out.println("Found ancestor: " + node.toString());
+                            commonAncestors.add(node);
                         }
+                    }
+
+                }
+            }
+
+            // Expand to the next level
+            for (int i = 0; i < ancestorList.size(); i++) {
+                tmp.clear();
+                for (ConceptNode anc : ancestorList.get(i)) {
+                    if (!anc.start.equals("animal"))
+                        tmp.addAll(getAncestors(anc, anc.end));
+                }
+                ancestorList.get(i).addAll(tmp);
+            }
+
+            depth++;
+        }
+
+        for (ConceptNode node : commonAncestors) {
+            if (node.end.equals("animal")) {
+                commonAncestors.remove(node);
+                break;
+            }
+        }
+        return commonAncestors;
+    }
+
+    public static Map<String, Set<ConceptNode>> commonAncConcept (String[] concepts, String concept) throws IOException, JSONException {
+        Map<String, Set<ConceptNode>> commonAncestors = new HashMap<>();
+        ArrayList<String> edges = ConceptEdges.getEdgesTest();
+
+        Set<ConceptNode> conceptAncs = new HashSet<>();
+        conceptAncs.addAll(getAncestors(null, concept));
+
+        Map<String, Set<ConceptNode>> ancestorMap = new HashMap<>();
+        for (int i = 0; i<concepts.length; i++) {
+            ancestorMap.put(concepts[i], new HashSet<>(getAncestors(null, concepts[i])));
+            commonAncestors.put(concepts[i], new HashSet<>());
+        }
+
+        Set<ConceptNode> tmp = new HashSet<>();
+
+        int depth = 1;
+        while(depth < 4) {
+            System.out.println("Depth: " + depth);
+
+            // Check for ancestors between two concepts
+            for (String s : ancestorMap.keySet()) {
+                for (ConceptNode node : conceptAncs) {
+                    if (!commonAncestors.get(s).contains(node) && ancestorMap.get(s).contains(node)) {
+                        System.out.println("Found ancestor for " + s + ": " +node.toString());
+                        commonAncestors.get(s).add(node);
                     }
                 }
             }
 
-            // expand first concept
-            tmp.clear();
-            for (ConceptNode anc : ancestors1) {
-                tmp.addAll(getAncestors(anc.start, anc.end));
+            // Expand to the next level
+            for (String s : ancestorMap.keySet()) {
+                tmp.clear();
+                for (ConceptNode anc : ancestorMap.get(s)) {
+                    if (!anc.start.equals("animal") && !anc.end.equals("animal"))
+                        tmp.addAll(getAncestors(anc, anc.end));
+                }
+                ancestorMap.get(s).addAll(tmp);
             }
-            ancestors1.addAll(tmp);
 
-            // expand second concept
-            tmp.clear();
-            for (ConceptNode anc : ancestors2) {
-                tmp.addAll(getAncestors(anc.start, anc.end));
-            }
-            ancestors2.addAll(tmp);
-
-            // expand third concept
-            tmp.clear();
-            for (ConceptNode anc : ancestors3) {
-                tmp.addAll(getAncestors(anc.start, anc.end));
-            }
-            ancestors3.addAll(tmp);
+            depth++;
         }
 
-        return commonAncestors;
-    }
 
-    public static Set<String> commonAncestors (String concept1, String concept2) throws IOException, JSONException {
-        System.out.println("commonAncestors2:");
-        Set<String> commonAncestors = new HashSet<>();
-
-        ArrayList<ConceptNode> ancestors1 = getAncestors("null", concept1);
-        ArrayList<ConceptNode> ancestors2 = getAncestors("null", concept2);
-
-        Set<ConceptNode> tmp = new HashSet<>();
-
-        int depth = 0;
-        while(depth < 4) {
-            depth++;
-            System.out.println("Depth: " + depth);
-
-            // Check for any ancestors
-            for (ConceptNode x : ancestors1) {
-                for (ConceptNode y : ancestors2) {
-                    if (x.end.equals(y.end)) {
-                        if (!commonAncestors.contains(x.end)) {
-                            System.out.println("Found ancestor: " + x.end + "; { (" + x.start + " " + x.rel + ", p: " + x.parent
-                                                                        + "), (" + y.start + " " + y.rel + ", p: " + y.parent + ") }");
-                            commonAncestors.add(x.end);
-                        }
-                    }
+        // Remove animal
+        for (String s : ancestorMap.keySet()) {
+            for (ConceptNode node : commonAncestors.get(s)) {
+                if (node.end.equals("animal")) {
+                    commonAncestors.get(s).remove(node);
+                    break;
                 }
             }
-
-            // expand first concept
-            tmp.clear();
-            for (ConceptNode anc : ancestors1) {
-                tmp.addAll(getAncestors(anc.start, anc.end));
-            }
-            ancestors1.addAll(tmp);
-
-            // expand second concept
-            tmp.clear();
-            for (ConceptNode anc : ancestors2) {
-                tmp.addAll(getAncestors(anc.start, anc.end));
-            }
-            ancestors2.addAll(tmp);
         }
-
         return commonAncestors;
     }
 
 
-    public static ArrayList<ConceptNode> getAncestors (String parent, String concept) throws IOException, JSONException {
+    public static ArrayList<ConceptNode> getAncestors (ConceptNode parent, String concept) throws IOException, JSONException {
         ArrayList<ConceptNode> ancestors = new ArrayList<>();
 
         JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100,0);
@@ -197,16 +201,16 @@ public class ConceptSimilarity {
             String rel = objArray.getJSONObject(i).get("rel").toString();
             String end = objArray.getJSONObject(i).get("end").toString();
             double weight = objArray.getJSONObject(i).getDouble("weight");
-            if (rel.equals("/r/IsA") && start.equals("/c/en/" + concept) && weight > 1.6) {
-                ancestors.add(new ConceptNode(parent, start.replaceAll("/c/en/",""), rel, end.replaceAll("/c/en/","")));
+            if (rel.contains("/r/IsA") /*&& start.equals("/c/en/" + concept)*/ /*&& weight > 1.6*/) {
+                ancestors.add(new ConceptNode(parent, start.replaceAll("/c/en/","").replaceAll("/n/.*", ""), rel, end.replaceAll("/c/en/","").replaceAll("/n/.*", ""), weight));
             }
         }
 
         return ancestors;
     }
 
-    public static ArrayList<ConceptNode> getDescendants (String parent, String concept, ArrayList<String> edges) throws IOException, JSONException {
-        ArrayList<ConceptNode> ancestors = new ArrayList<>();
+    public static ArrayList<ConceptNode> getAttributes (ConceptNode parent, String concept, ArrayList<String> edges) throws IOException, JSONException {
+        ArrayList<ConceptNode> attributes = new ArrayList<>();
 
         JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100,0);
         JSONArray objArray = conceptObj.getJSONArray("edges");
@@ -216,29 +220,59 @@ public class ConceptSimilarity {
             String rel = objArray.getJSONObject(i).get("rel").toString();
             String end = objArray.getJSONObject(i).get("end").toString();
             double weight = objArray.getJSONObject(i).getDouble("weight");
-            if (edges.equals(rel) && start.equals("/c/en/" + concept) && weight > 1.6) {
-                ancestors.add(new ConceptNode(parent, start.replaceAll("/c/en/",""), rel, end.replaceAll("/c/en/","")));
+            if (edges.contains(rel) /*&& start.equals("/c/en/" + concept)*/ /*&& weight > 1.6*/) {
+                attributes.add(new ConceptNode(parent, start.replaceAll("/c/en/","").replaceAll("/n/.*", ""), rel, end.replaceAll("/c/en/","").replaceAll("/n/.*", ""), weight));
             }
         }
 
-        return ancestors;
+        return attributes;
     }
 
-    public static int countDescendants (String concept, ArrayList<String> edges) throws IOException, JSONException {
+    public static int countAttributes (String concept, int limit, ArrayList<String> edges) throws IOException, JSONException {
         int count = 0;
 
-        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, 100000,0);
+        JSONObject conceptObj = ConceptQuery.getJSONObject(concept, limit,0);
         JSONArray objArray = conceptObj.getJSONArray("edges");
 
         for (int i = 0; i<objArray.length(); i++) {
+            String start = objArray.getJSONObject(i).get("start").toString();
             String rel = objArray.getJSONObject(i).get("rel").toString();
             String end = objArray.getJSONObject(i).get("end").toString();
             double weight = objArray.getJSONObject(i).getDouble("weight");
-            if (edges.contains(rel) && end.equals("/c/en/" + concept) && weight > 1.6) {
+            if (edges.contains(rel) && start.equals("/c/en/" + concept) /*&& weight > 1.6*/) {
+                //System.out.println("Counting attribute for " + concept + ": " + end);
                 count++;
             }
         }
 
         return count;
+    }
+
+    public static Map<String, Integer> countCommonAttrConcept (String[] concepts, String concept) throws IOException, JSONException {
+        Map<String, Integer> commonAttributes = new HashMap<>();
+        ArrayList<String> edges = ConceptEdges.getEdges();
+
+        Set<ConceptNode> conceptAttrs = new HashSet<>();
+        conceptAttrs.addAll(getAttributes(null, concept, edges));
+
+        Map<String, Set<ConceptNode>> ancestorMap = new HashMap<>();
+        for (int i = 0; i<concepts.length; i++) {
+            ancestorMap.put(concepts[i], new HashSet<>(getAttributes(null, concepts[i], edges)));
+            commonAttributes.put(concepts[i], 0);
+        }
+
+
+        // Check for ancestors between two concepts
+        for (String ancStr : ancestorMap.keySet()) {
+            for (ConceptNode node : conceptAttrs) {
+                if (ancestorMap.get(ancStr).contains(node)) {
+                    //System.out.println("Found common attribute for " + ancStr + ": " + node.start + " -" + node.rel + "-> " + node.end);
+                    commonAttributes.put(ancStr, commonAttributes.get(ancStr) + 1);
+                }
+            }
+        }
+
+
+        return commonAttributes;
     }
 }
