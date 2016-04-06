@@ -9,19 +9,23 @@ public class Relation {
     String concept;
     double score;
     double prob;
+    String parent;
+    String child;
 
-    public Relation(String relation, String concept, double score, double prob) {
+    public Relation(String parent, String child, String relation, String concept, double score, double prob) {
 
         this.relation = relation;
         this.concept = concept;
         this.score = score;
         this.prob = prob;
+        this.parent = parent;
+        this.child = child;
     }
 
     @Override
     public String toString()
     {
-        return (relation + " " + concept + " " + score + " " + prob + "\n");
+        return (parent + " " + relation + " " + child + " " + score + "\n");
     }
 
     public boolean equals(Object obj) {

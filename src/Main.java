@@ -17,8 +17,15 @@ public class Main {
         //testAncestorScores();
         //test();
         //test2();
-        testCountAncestorScores();
+        //testCountAncestorScores();
+        findConnection();
 
+    }
+
+
+    public static void findConnection() throws JSONException, IOException {
+        Collection<Node> coll = new ArrayList<>();
+        coll = Final.showRelations("house", "mammal");
     }
 
     public static void test2() throws IOException{

@@ -16,11 +16,11 @@ public class Cougar {
      * findConnection lists all possible relations from one concept, and the concept connected to that rel.
      * Also lists the ConceptNet5 user score, weight, that this rel holds.
      */
-    public static Collection<Relation> findConnections(String concept) throws IOException, JSONException {
+    public static Collection<Node> findConnections(String concept) throws IOException, JSONException {
 
-        Collection<Relation> conceptChildren = new ArrayList<>();
+        Collection<Node> conceptChildren = new ArrayList<>();
         ArrayList<String> pathList = ConceptEdges.getEdges();
-        int queryCount = 50;
+        int queryCount = 30;
 
         try {
             String conceptQuery = ConceptQuery.returnURL(concept, queryCount,0);
@@ -31,27 +31,19 @@ public class Cougar {
 
                 //try {
                 JSONObject objResult = objQuery.getJSONArray("edges").getJSONObject(i);
-                JSONArray array = objResult.getJSONArray("features");
+                String relation = objResult.getString("rel");
                 double score = objResult.getDouble("weight");
+                String parent = objResult.getString("start");
+                String child = objResult.getString("end");
 
-                for (int k = 0; k < array.length(); k++) {
-                    String currArrayItem = array.getString(k);
-                    for (int h = 0; h < pathList.size(); h++) {
-                        if (currArrayItem.contains(pathList.get(h))) {
-                            String conceptChild = currArrayItem;
-                            String[] tmp = conceptChild.split(" ");
-                            Relation rel = new Relation(tmp[1].replaceAll("/r/", ""), tmp[2].replaceAll("/c/en/", ""), score, 0);
-                            if (!conceptChildren.contains(rel)) {
-                                conceptChildren.add(rel);
-                            }
-                        }
+                if (pathList.contains(relation)) {
+                    Node node = new Node(parent.replace("/c/en/", ""), child.replace("/c/en/", ""), relation.replace("/r/",""), score);
+                    if (!conceptChildren.contains(node)) {
+                        conceptChildren.add(node);
                     }
                 }
+
             }
-            //catch (JSONException ex) {
-            //  break;
-            //}
-            //return conceptChildren;
         }
         catch (IOException | JSONException ex) {
 
