@@ -13,7 +13,7 @@ public class Final {
      * showRelations, searches 3 level outwards from a concept trying to find a rel
      * to another concept. If it finds it, it return a collection of Relations.
      */
-    public static Collection<Node> showRelations(String concept1, String concept2) throws IOException, JSONException{
+    public static Collection<Node> showRelations(String parent, String child) throws IOException, JSONException{
 
         Collection<Node> newColl = new ArrayList<>();
         Collection<Node> tmp = new ArrayList<>();
@@ -23,10 +23,10 @@ public class Final {
 
         boolean found = false;
 
-        tmp = Cougar.findConnections(concept1);
+        tmp = Cougar.findConnections(parent);
         ArrayList<String> childrenList = new ArrayList<>();
         ArrayList<String> AllChildrenList = new ArrayList<>();
-        childrenList.add(concept1);
+        childrenList.add(parent);
         int level = 0;
         stop:
         while (level < 5) {
@@ -34,7 +34,7 @@ public class Final {
             System.out.println("LEVEL: " + level);
             for (int i = 0; i < tmp.size(); i++) {
                 Node tmpNode = ((ArrayList<Node>)tmp).get(i);
-                if (tmpNode.child.equals(concept2)) {
+                if (tmpNode.child.equals(child)) {
                     newColl.add(tmpNode);
                     System.out.println("");
                     System.out.println("Connection Found");
@@ -76,7 +76,7 @@ public class Final {
             AllChildrenList.addAll(childrenList);
             childrenList.clear();
             for (int i = 0; i < tmpColl.size(); i++) {
-                if (!childrenList.contains(((ArrayList<Node>)tmpColl).get(i).child)) {
+                if (!childrenList.contains(((ArrayList<Node>)tmpColl).get(i).child) && ((ArrayList<Node>)tmpColl).get(i).weight > 2.5) {
                     childrenList.add(((ArrayList<Node>)tmpColl).get(i).child);
                     for (int j = 0; j < childrenList.size(); j++) {
                         if (AllChildrenList.contains(childrenList.get(j))) {

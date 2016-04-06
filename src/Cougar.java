@@ -37,12 +37,11 @@ public class Cougar {
                 String child = objResult.getString("end");
 
                 if (pathList.contains(relation)) {
-                    Node node = new Node(parent.replace("/c/en/", ""), child.replace("/c/en/", ""), relation.replace("/r/",""), score);
+                    Node node = new Node(parent.replace("/c/en/", ""), child.replace("/c/en/", ""), relation.replace("/r/", ""), score);
                     if (!conceptChildren.contains(node)) {
                         conceptChildren.add(node);
                     }
                 }
-
             }
         }
         catch (IOException | JSONException ex) {

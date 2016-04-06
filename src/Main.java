@@ -23,9 +23,13 @@ public class Main {
     }
 
 
+    /*
+     * Find a link between two concepts in a directed graph.
+     * 
+     */
     public static void findConnection() throws JSONException, IOException {
         Collection<Node> coll = new ArrayList<>();
-        coll = Final.showRelations("house", "mammal");
+        coll = Final.showRelations("house", "space_shuttle");
     }
 
     public static void test2() throws IOException{
