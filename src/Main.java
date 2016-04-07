@@ -6,6 +6,7 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -15,70 +16,17 @@ public class Main {
         //testConceptNetCount();
         //testConceptNetScore();
         //testAncestorScores();
-        //test();
-        //test2();
         //testCountAncestorScores();
         findConnection();
 
     }
 
-
     /*
-     * Find a link between two concepts in a directed graph.
-     * 
+     * Find the shortest link between two concepts in a directed graph.
      */
     public static void findConnection() throws JSONException, IOException {
         Collection<Node> coll = new ArrayList<>();
-        coll = Final.showRelations("house", "space_shuttle");
-    }
-
-    public static void test2() throws IOException{
-
-        File file = new File("animal.txt");
-        Scanner scanner = new Scanner(file);
-        Collection<Node> nodeColl = new ArrayList<>();
-        Collection<Node> nodeRel = new ArrayList<>();
-
-        while (scanner.hasNext()) {
-            String parent = scanner.next();
-            String relation = scanner.next();
-            String child = scanner.next();
-            Double weight = Double.parseDouble(scanner.next());
-            Node newNode = new Node(parent, child, relation, weight);
-            nodeColl.add(newNode);
-        }
-
-        for (int i = 0; i < nodeColl.size(); i++) {
-            System.out.println(((ArrayList<Node>)nodeColl).get(i));
-        }
-        System.out.println(nodeColl.size());
-
-        Collection<Node> coll = new ArrayList<>();
-        coll.add(((ArrayList<Node>)nodeColl).get(0));
-        String tmp = ((ArrayList<Node>)nodeColl).get(2).child;
-        String tmp2 = ((ArrayList<Node>)nodeColl).get(3).parent;
-
-        for (int i = 0; i < nodeColl.size(); i++) {
-            if (tmp.equals(((ArrayList<Node>) nodeColl).get(i).parent)) {
-                coll.add(((ArrayList<Node>) nodeColl).get(i));
-                tmp = ((ArrayList<Node>) nodeColl).get(i).parent;
-            }
-        }
-
-        for (int i = 0; i < coll.size(); i++) {
-            System.out.println(((ArrayList<Node>)coll).get(i));
-        }
-        System.out.println(tmp);
-        System.out.println(tmp2);
-    }
-
-    public static void test() throws JSONException, IOException {
-
-        Collection<Node> test = new ArrayList<>();
-        test = Testing.getNodeChildrens("animal", 10, 100);
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println(((ArrayList<Node>)test).get(i));
-        }
+        coll = Final.showRelations("house", "animal", true);
     }
 
     public static void testConceptNetCount() throws JSONException, IOException {
